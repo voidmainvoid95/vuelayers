@@ -386,6 +386,12 @@ export default {
 
       this.$emit('update:style', isObjectLike(value) ? clonePlainObject(value) : value)
     },
+    /**
+     * @param {FeatureAnimationLike} animation
+     */
+    animate (animation) {
+      this.$featuresContainer?.animateFeature(this, animation)
+    },
   },
 }
 

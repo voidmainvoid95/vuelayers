@@ -3,6 +3,7 @@ import {
   ClusterSource,
   DrawInteraction,
   Feature,
+  FeatureAnimation,
   Geoloc,
   GraticuleLayer,
   GroupLayer,
@@ -17,7 +18,7 @@ import {
   ModifyInteraction,
   OsmSource,
   Overlay,
-  RotateInteraction,
+  RotateInteraction, SearchBar,
   SelectInteraction,
   SnapInteraction,
   SputnikSource,
@@ -63,6 +64,7 @@ export default function plugin (Vue, options = {}) {
   Vue.use(ClusterSource, options)
   Vue.use(DrawInteraction, options)
   Vue.use(Feature, options)
+  Vue.use(FeatureAnimation, options)
   Vue.use(Geoloc, options)
   Vue.use(GraticuleLayer, options)
   Vue.use(GroupLayer, options)
@@ -79,6 +81,7 @@ export default function plugin (Vue, options = {}) {
   Vue.use(Overlay, options)
   Vue.use(RotateInteraction, options)
   Vue.use(SelectInteraction, options)
+  Vue.use(SearchBar, options)
   Vue.use(SnapInteraction, options)
   Vue.use(SputnikSource, options)
   Vue.use(StamenSource, options)
@@ -104,6 +107,7 @@ export {
   ClusterSource,
   DrawInteraction,
   Feature,
+  FeatureAnimation,
   Geoloc,
   GraticuleLayer,
   GroupLayer,
@@ -120,6 +124,7 @@ export {
   Overlay,
   RotateInteraction,
   SelectInteraction,
+  SearchBar,
   SnapInteraction,
   SputnikSource,
   StamenSource,

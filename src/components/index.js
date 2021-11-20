@@ -2,6 +2,7 @@ import * as BingmapsSource from './bingmaps-source'
 import * as ClusterSource from './cluster-source'
 import * as DrawInteraction from './draw-interaction'
 import * as Feature from './feature'
+import * as FeatureAnimation from './feature-animation'
 import * as Geoloc from './geoloc'
 import * as GraticuleLayer from './graticule-layer'
 import * as GroupLayer from './group-layer'
@@ -18,6 +19,7 @@ import * as OsmSource from './osm-source'
 import * as Overlay from './overlay'
 import * as RotateInteraction from './rotate-interaction'
 import * as SelectInteraction from './select-interaction'
+import * as SearchBar from './search-bar'
 import * as SnapInteraction from './snap-interaction'
 import * as SputnikSource from './sputnik-source'
 import * as StamenSource from './stamen-source'
@@ -40,6 +42,7 @@ export {
   ClusterSource,
   DrawInteraction,
   Feature,
+  FeatureAnimation,
   Geoloc,
   GraticuleLayer,
   GroupLayer,
@@ -56,6 +59,7 @@ export {
   Overlay,
   RotateInteraction,
   SelectInteraction,
+  SearchBar,
   SnapInteraction,
   SputnikSource,
   StamenSource,

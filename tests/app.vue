@@ -4,19 +4,30 @@
       ref="map"
       :default-interactions="interactionOptions"
       data-projection="EPSG:4326">
+      <VlSearchBarNominatim />
+
       <VlView
         :zoom.sync="zoom"
-        :center.sync="center"
-        :extent="[-10,-10,10,10]" />
+        :center.sync="center" />
       <VlLayerTile>
         <VlSourceOsm @created="sourceCreated" />
       </VlLayerTile>
 
       <VlLayerVector>
+        <VlFeature>
+          <VlFeatureAnimationBounce
+            :bounce="10"
+            :amplitude="100" />
+          <VlGeomPoint :coordinates="center" />
+        </VlFeature>
+      </VlLayerVector>
+      <!---
+      <VlLayerVector>
         <VlSourceVector :features="savedFeatures" />
       </VlLayerVector>
 
       <VlInteractionSelect :features.sync="selectedFeatures" />
+      --->
     </VlMap>
   </div>
 </template>
@@ -30,8 +41,8 @@
     name: 'App',
     data: function () {
       return {
-        zoom: 5,
-        center: [0, 0],
+        zoom: 14,
+        center: [15.07733892913811, 37.52482234534241],
         extent: null,
         features: [],
         selectedFeatures: [],
