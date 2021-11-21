@@ -73,6 +73,15 @@
   }
 </script>
 
-<style scoped>
-
+<style>
+  .ol-search ul {
+    color: #333;
+    font-size:0.85em;
+    max-width: 21em;
+  }
+  .ol-search ul i {
+    display: block;
+    color: #333;
+    font-size:0.85em;
+  }
 </style>

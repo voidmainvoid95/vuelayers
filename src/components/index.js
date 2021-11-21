@@ -17,6 +17,7 @@ import * as MapboxVectorLayer from './mapbox-vector-layer'
 import * as ModifyInteraction from './modify-interaction'
 import * as OsmSource from './osm-source'
 import * as Overlay from './overlay'
+import * as OverlayMenu from './control'
 import * as RotateInteraction from './rotate-interaction'
 import * as SelectInteraction from './select-interaction'
 import * as SearchBar from './search-bar'
@@ -57,6 +58,7 @@ export {
   ModifyInteraction,
   OsmSource,
   Overlay,
+  OverlayMenu,
   RotateInteraction,
   SelectInteraction,
   SearchBar,

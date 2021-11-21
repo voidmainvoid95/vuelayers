@@ -67,6 +67,24 @@
   }
 </script>
 
-<style scoped>
-
+<style>
+  .ol-search ul {
+    color: #333;
+    font-size:0.85em;
+    max-width: 21em;
+  }
+  .ol-search ul i {
+    display: block;
+    color: #333;
+    font-size:0.85em;
+  }
+  .info {
+    display: inline-block;
+    width: 100%;
+  }
+  .info a img {
+    height: 100px;
+    margin-right: .5em;
+    float: left;
+  }
 </style>

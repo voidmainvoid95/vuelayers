@@ -18,7 +18,9 @@ import {
   ModifyInteraction,
   OsmSource,
   Overlay,
-  RotateInteraction, SearchBar,
+  OverlayMenu,
+  RotateInteraction,
+  SearchBar,
   SelectInteraction,
   SnapInteraction,
   SputnikSource,
@@ -79,6 +81,7 @@ export default function plugin (Vue, options = {}) {
   Vue.use(ModifyInteraction, options)
   Vue.use(OsmSource, options)
   Vue.use(Overlay, options)
+  Vue.use(OverlayMenu, options)
   Vue.use(RotateInteraction, options)
   Vue.use(SelectInteraction, options)
   Vue.use(SearchBar, options)
@@ -121,6 +124,7 @@ export {
   MapboxVectorLayer,
   ModifyInteraction,
   OsmSource,
+  OverlayMenu,
   Overlay,
   RotateInteraction,
   SelectInteraction,
