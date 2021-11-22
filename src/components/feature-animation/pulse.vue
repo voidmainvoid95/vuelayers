@@ -27,8 +27,8 @@
         const c = -Math.cos(a) * Math.pow(2, b)
         t = 1 - Math.cos(t * Math.PI / 2)
         return (1 + Math.abs(Math.cos(a * t)) * Math.pow(2, b * t) + c * t) / 2
-      }
-      this.currentDuration = 3000
+      }.bind(this)
+      this.currentDuration = this.duration || 3000
     },
     methods: {
       createFeatureAnimation () {

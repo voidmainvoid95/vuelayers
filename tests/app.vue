@@ -19,9 +19,7 @@
 
       <VlLayerVector>
         <VlFeature>
-          <VlFeatureAnimationBounce
-            :bounce="10"
-            :amplitude="100" />
+          <VlFeatureAnimationPulse />
           <VlGeomPoint :coordinates="center" />
         </VlFeature>
       </VlLayerVector>

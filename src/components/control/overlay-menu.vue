@@ -55,20 +55,28 @@
         }
       },
     },
+    props: {
+      right: {
+        type: Boolean,
+        default: false,
+      },
+    },
     data () {
       return {
         currentCloseBox: false,
-        currentClassName: 'slide-left menu',
+        currentClassName: '',
         currentHideOnClick: false,
       }
     },
     created () {
       this::defineServices()
+      if (this.right) {
+        this.currentClassName = `${this.vmClass} slide-right menu right`
+      } else {
+        this.currentClassName = `${this.vmClass} slide-top menu left`
+      }
     },
     methods: {
-      printMenu () {
-        this.$overlayMenu.toggle()
-      },
       /**
        * Create OverlayMenu
        * @return {module:ol-ext/control/Overlay~Overlay}
@@ -83,7 +91,7 @@
         })
         this.$toggle = new Toggle({
           html: this.$refs.toggle,
-          className: `${this.vmClass} toggle`,
+          className: `${this.vmClass} toggle ${this.right ? 'right' : 'left'}`,
           title: 'Menu',
           onToggle: () => { this.$overlayMenu.toggle() },
         })
@@ -94,7 +102,7 @@
         const currentControls = this.$controlsContainer.getControls()
         currentControls.forEach(control => {
           if (control instanceof Zoom) {
-            control.element.className += ` ${this.vmClass}`
+            control.element.className += ` ${this.vmClass} ${this.right ? 'right' : 'left'}`
           }
         })
         this.$controlsContainer?.addControls([this.$overlayMenu, this.$toggle])
@@ -141,7 +149,12 @@
   }
 </script>
 <style>
-  .ol-overlay.menu
+  .vl-overlay-menu.ol-overlay.slide-right
+  {
+    left: auto!important;
+    right: 0;
+  }
+  .vl-overlay-menu.ol-overlay.menu
   {
     width: 30%;
     background: #fff;
@@ -151,16 +164,26 @@
     -webkit-transition: all 0.25s;
     transition: all 0.25s;
   }
+  .vl-overlay-menu.ol-overlay.ol-visible.right
+  {
+    left: auto!important;
+  }
   .vl-overlay-menu.toggle
   {
     top: 0.5em;
     left: 0.5em;
   }
+  .vl-overlay-menu.toggle.right
+  {
+    top: 0.5em;
+    left: auto;
+    right: 0.5em;
+  }
   .vl-overlay-menu.toggle button
   {
     color: #fff;
   }
-  .vl-overlay-menu.ol-zoom {
+  .vl-overlay-menu.ol-zoom.left {
     top: 3em!important;
   }
 </style>
