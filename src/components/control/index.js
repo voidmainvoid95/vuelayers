@@ -1,4 +1,4 @@
-import OverlayMenu from './overlay.vue'
+import OverlayMenu from './overlay-menu.vue'
 
 function plugin (Vue, options = {}) {
   if (plugin.installed) {
