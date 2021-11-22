@@ -3,11 +3,11 @@
     :id="vmId"
     :class="vmClass"
     style="display: none !important;">
-    <i ref="toggle">
+    <button ref="toggle">
       <slot name="toggle">
         <FontAwesomeIcon icon="bars" />
       </slot>
-    </i>
+    </button>
     <div
       ref="content"
       class="content">
@@ -28,6 +28,7 @@
 <script>
   import Overlay from 'ol-ext/control/Overlay'
   import Toggle from 'ol-ext/control/Toggle'
+  import { Zoom } from 'ol/control'
   import olCmp from '../../mixins/ol-cmp'
   import { mergeDescriptors } from '../../utils'
   import stubVNode from '../../mixins/stub-vnode'
@@ -82,7 +83,7 @@
         })
         this.$toggle = new Toggle({
           html: this.$refs.toggle,
-          className: 'menu',
+          className: `${this.vmClass} toggle`,
           title: 'Menu',
           onToggle: () => { this.$overlayMenu.toggle() },
         })
@@ -90,8 +91,13 @@
       },
       resolveOverlayMenu: olCmp.methods.resolveOlObject,
       async mount () {
+        const currentControls = this.$controlsContainer.getControls()
+        currentControls.forEach(control => {
+          if (control instanceof Zoom) {
+            control.element.className += ` ${this.vmClass}`
+          }
+        })
         this.$controlsContainer?.addControls([this.$overlayMenu, this.$toggle])
-
         return this::olCmp.methods.mount()
       },
       /**
@@ -145,28 +151,21 @@
     -webkit-transition: all 0.25s;
     transition: all 0.25s;
   }
-  .ol-control.menu
+  .vl-overlay-menu.toggle
   {
     top: 0.5em;
     left: 0.5em;
   }
-  .ol-control.menu i
+  .vl-overlay-menu.toggle button
   {
     color: #fff;
   }
-  .ol-zoom
-  {
-    left: auto;
-    right: 0.5em;
+  .vl-overlay-menu.ol-zoom {
+    top: 3em!important;
   }
-  .ol-rotate
-  {
-    right: 3em;
-  }
-  .ol-touch .ol-rotate
-  {
-    right: 3.5em;
-  }
+</style>
+
+<style scoped>
   .content
   {
     font-size: 0.9em;

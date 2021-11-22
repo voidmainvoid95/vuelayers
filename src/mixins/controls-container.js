@@ -88,7 +88,10 @@ export default {
         )
       }
       if (controls) {
-        controls.forEach(control => control.set('vl_default', true))
+        controls.forEach(control => {
+          control.set('vl_default', true)
+        },
+        )
         this.addControls(controls)
       }
     },

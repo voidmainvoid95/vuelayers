@@ -3,7 +3,6 @@
     <VlMap
       ref="map"
       :default-interactions="interactionOptions"
-      :default-controls="false"
       data-projection="EPSG:4326">
       <VlSearchBarNominatim />
       <VlOverlayMenu>
