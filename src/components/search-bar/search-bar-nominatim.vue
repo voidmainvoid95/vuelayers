@@ -1,13 +1,18 @@
 <template>
   <i
     :id="vmId"
-    :class="vmClass"
-    style="display: none !important;" />
+    ref="icon"
+    :class="vmClass">
+    <slot name="icon">
+      <font-awesome-icon icon="search" />
+    </slot>
+  </i>
 </template>
 
 <script>
   import SearchNominatim from 'ol-ext/control/SearchNominatim'
   import searchBar from '../../mixins/search-bar'
+
   export default {
     name: 'VlSearchBarNominatim',
     mixins: [
@@ -43,13 +48,14 @@
     },
     methods: {
       createSearchBar () {
-        return new SearchNominatim({
+        const newSearchBar = new SearchNominatim({
+          className: this.vmClass,
           polygon: this.currentPolygon,
           viewbox: this.currentViewbox,
           bounded: this.currentBounded,
           url: this.currentUrl,
-          target: this.currentTarget,
           title: this.currentTitle,
+          target: this.currentTarget,
           reverseTitle: this.currentReverseTitle,
           placeholder: this.currentPlaceholder,
           inputLabel: this.currentInputLabel,
@@ -60,20 +66,29 @@
           maxItems: this.currentMaxItems,
           centerOnSelect: this.currentCenterOnSelect,
           zoomOnSelect: this.currentZoomOnSelect,
-        },
-        )
+        })
+        newSearchBar.element.childNodes.forEach(item => {
+          if (item.nodeName === 'BUTTON') { item.appendChild(this.$refs.icon) }
+        })
+        return newSearchBar
       },
     },
   }
 </script>
 
 <style>
+  .vl-search-bar-nominatim.ol-control.ol-search > button:before {
+    content: none!important;
+  }
+  .vl-search-bar-nominatim.ol-control.ol-search > button:after {
+    content: none!important;
+  }
   .ol-search ul {
     color: #333;
     font-size:0.85em;
-    max-width: 21em;
+    max-width: 20.375em!important;
   }
-  .ol-search ul i {
+  .ol-search ul li {
     display: block;
     color: #333;
     font-size:0.85em;

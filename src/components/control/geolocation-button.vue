@@ -1,0 +1,55 @@
+<template>
+  <i
+    :id="vmId"
+    ref="icon"
+    :class="vmClass">
+    <slot name="icon">
+      <FontAwesomeIcon icon="location-arrow" />
+    </slot>
+  </i>
+</template>
+
+<script>
+  import GeolocationButton from 'ol-ext/control/GeolocationButton'
+  import controlToggle from '../../mixins/control-toggle'
+
+  export default {
+    name: 'VlGeolocationButton',
+    mixins: [
+      controlToggle,
+    ],
+    methods: {
+      createToggle () {
+        const newGeolocationButton = new GeolocationButton({
+          html: this.$refs.toggle,
+          className: this.currentClassName,
+          title: this.currentTitle,
+          delay: 2000,
+        })
+        newGeolocationButton.on('position', event => {
+          if (event.coordinate) { this.$emit('position', event.coordinate) }
+        })
+        newGeolocationButton.getButtonElement().appendChild(this.$refs.icon)
+        return newGeolocationButton
+      },
+    },
+  }
+</script>
+
+<style scoped>
+  .vl-geolocation-button.ol-control.ol-geobt {
+    top: 3em;
+    left: auto;
+    right: 0.5em;
+    bottom: auto;
+  }
+</style>
+
+<style>
+  .vl-geolocation-button.ol-control.ol-geobt > button:before {
+    content: none!important;
+  }
+  .vl-geolocation-button.ol-control.ol-geobt > button:after {
+    content: none!important;
+  }
+</style>

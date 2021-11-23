@@ -10,6 +10,7 @@
           Press me
         </button>
       </VlOverlayMenu>
+      <VlGeolocationButton @position="test" />
       <VlView
         :zoom.sync="zoom"
         :center.sync="center" />
@@ -87,6 +88,9 @@
         this.interactionOptions.shiftDragZoom = !this.interactionOptions.shiftDragZoom
         this.interactionOptions.mouseWheelZoom = !this.interactionOptions.mouseWheelZoom
         this.interactionOptions.pinchZoom = !this.interactionOptions.pinchZoom
+      },
+      test (payload) {
+        console.log('TEST: ', payload)
       },
     },
   }

@@ -3,11 +3,15 @@
     :id="vmId"
     :class="vmClass"
     style="display: none !important;">
-    <button ref="toggle">
-      <slot name="toggle">
-        <FontAwesomeIcon icon="bars" />
-      </slot>
-    </button>
+    <i ref="toggle">
+      <VlControlToggle
+        :class="vmClass"
+        @toggle="toggleOverlayMenu">
+        <template #icon>
+          <FontAwesomeIcon icon="bars" />
+        </template>
+      </VlControlToggle>
+    </i>
     <div
       ref="content"
       class="content">
@@ -27,20 +31,16 @@
 
 <script>
   import Overlay from 'ol-ext/control/Overlay'
-  import Toggle from 'ol-ext/control/Toggle'
   import { Zoom } from 'ol/control'
   import olCmp from '../../mixins/ol-cmp'
   import { mergeDescriptors } from '../../utils'
   import stubVNode from '../../mixins/stub-vnode'
-  import { library } from '@fortawesome/fontawesome-svg-core'
-  import { faBars } from '@fortawesome/free-solid-svg-icons'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-  library.add(faBars)
+  import VlControlToggle from './toggle'
 
   export default {
     name: 'VlOverlayMenu',
     components: {
-      FontAwesomeIcon,
+      VlControlToggle,
     },
     mixins: [
       stubVNode,
@@ -73,7 +73,7 @@
       if (this.right) {
         this.currentClassName = `${this.vmClass} slide-right menu right`
       } else {
-        this.currentClassName = `${this.vmClass} slide-top menu left`
+        this.currentClassName = `${this.vmClass} slide-left menu left`
       }
     },
     methods: {
@@ -83,19 +83,12 @@
        * @protected
        */
       createOlObject () {
-        const newControlOverlay = new Overlay({
+        return new Overlay({
           closeBox: this.currentCloseBox,
           className: this.currentClassName,
           content: this.$refs.content,
           hideOnClick: this.currentHideOnClick,
         })
-        this.$toggle = new Toggle({
-          html: this.$refs.toggle,
-          className: `${this.vmClass} toggle ${this.right ? 'right' : 'left'}`,
-          title: 'Menu',
-          onToggle: () => { this.$overlayMenu.toggle() },
-        })
-        return newControlOverlay
       },
       resolveOverlayMenu: olCmp.methods.resolveOlObject,
       async mount () {
@@ -105,7 +98,7 @@
             control.element.className += ` ${this.vmClass} ${this.right ? 'right' : 'left'}`
           }
         })
-        this.$controlsContainer?.addControls([this.$overlayMenu, this.$toggle])
+        this.$controlsContainer?.addControl(this.$overlayMenu)
         return this::olCmp.methods.mount()
       },
       /**
@@ -127,6 +120,9 @@
             get overlayMenuVm () { return vm },
           },
         )
+      },
+      toggleOverlayMenu () {
+        this.$overlayMenu.toggle()
       },
     },
   }
@@ -168,12 +164,12 @@
   {
     left: auto!important;
   }
-  .vl-overlay-menu.toggle
+  .vl-overlay-menu.ol-toggle
   {
     top: 0.5em;
     left: 0.5em;
   }
-  .vl-overlay-menu.toggle.right
+  .vl-overlay-menu.ol-toggle.right
   {
     top: 0.5em;
     left: auto;

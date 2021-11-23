@@ -18,7 +18,7 @@ import {
   ModifyInteraction,
   OsmSource,
   Overlay,
-  OverlayMenu,
+  Control,
   RotateInteraction,
   SearchBar,
   SelectInteraction,
@@ -41,6 +41,11 @@ import {
 } from './components'
 import './styles/main.scss'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faBars, faLocationArrow, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add([faBars, faLocationArrow, faSearch])
+
 /**
  * @const {string} VueLayers version.
  */
@@ -61,9 +66,12 @@ export default function plugin (Vue, options = {}) {
   }
   plugin.installed = true
 
+  Vue.component('FontAwesomeIcon', FontAwesomeIcon)
+
   // install components
   Vue.use(BingmapsSource, options)
   Vue.use(ClusterSource, options)
+  Vue.use(Control, options)
   Vue.use(DrawInteraction, options)
   Vue.use(Feature, options)
   Vue.use(FeatureAnimation, options)
@@ -81,7 +89,6 @@ export default function plugin (Vue, options = {}) {
   Vue.use(ModifyInteraction, options)
   Vue.use(OsmSource, options)
   Vue.use(Overlay, options)
-  Vue.use(OverlayMenu, options)
   Vue.use(RotateInteraction, options)
   Vue.use(SelectInteraction, options)
   Vue.use(SearchBar, options)
@@ -108,6 +115,7 @@ export {
   // components
   BingmapsSource,
   ClusterSource,
+  Control,
   DrawInteraction,
   Feature,
   FeatureAnimation,
@@ -124,7 +132,6 @@ export {
   MapboxVectorLayer,
   ModifyInteraction,
   OsmSource,
-  OverlayMenu,
   Overlay,
   RotateInteraction,
   SelectInteraction,
