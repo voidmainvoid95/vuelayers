@@ -32,6 +32,10 @@
         newGeolocationButton.getButtonElement().appendChild(this.$refs.icon)
         return newGeolocationButton
       },
+      async unmount () {
+        console.log('REMOVING BUTTON: ', this)
+        return this::controlToggle.methods.unmount()
+      },
     },
   }
 </script>

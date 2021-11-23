@@ -5,8 +5,56 @@
       :default-interactions="interactionOptions"
       data-projection="EPSG:4326">
       <VlSearchBarNominatim />
-      <VlOverlayMenu />
-      <VlGeolocationButton @position="test" />
+      <VlOverlayMenu :right="overlayMenuPosition === 'right'">
+        <div>
+          Choose an animation:
+          <select
+            v-model="pickedAnimation"
+            name="animation">
+            <template v-for="(animation, idx) in animations">
+              <option
+                :key="idx"
+                :value="animation">
+                {{ animation }}
+              </option>
+            </template>
+          </select>
+        </div>
+        <div>
+          Geolocation button:
+          <label class="switch">
+            <input
+              v-model="geolocationButton"
+              type="checkbox">
+          </label>
+        </div>
+        <div>
+          Overlay Menu Position:
+          <div>
+            <input
+              v-model="overlayMenuPosition"
+              type="radio"
+              name="menuPosition"
+              value="left">
+            Left
+          </div>
+          <div>
+            <input
+              v-model="overlayMenuPosition"
+              type="radio"
+              name="menuPosition"
+              value="right">
+            Right
+          </div>
+        </div>
+        <div v-if="currentPosition">
+          Current position:
+          {{ currentPosition }}
+        </div>
+      </VlOverlayMenu>
+      <VlGeolocationButton
+        v-if="geolocationButton"
+        @position="value => $data.currentPosition = value" />
       <VlView
         :zoom.sync="zoom"
         :center.sync="center" />
@@ -16,7 +64,17 @@
 
       <VlLayerVector>
         <VlFeature>
-          <VlFeatureAnimationPulse />
+          <VlFeatureAnimationBounce v-if="pickedAnimation === 'bounce'" />
+          <VlFeatureAnimationDrop v-else-if="pickedAnimation === 'drop'" />
+          <VlFeatureAnimationFade v-else-if="pickedAnimation === 'fade'" />
+          <VlFeatureAnimationPath v-else-if="pickedAnimation === 'path'" />
+          <VlFeatureAnimationPulse v-else-if="pickedAnimation === 'pulse'" />
+          <VlFeatureAnimationShake v-else-if="pickedAnimation === 'shake'" />
+          <VlFeatureAnimationShow v-else-if="pickedAnimation === 'show'" />
+          <VlFeatureAnimationSlide v-else-if="pickedAnimation === 'slide'" />
+          <VlFeatureAnimationTeleport v-else-if="pickedAnimation === 'teleport'" />
+          <VlFeatureAnimationThrow v-else-if="pickedAnimation === 'throw'" />
+          <VlFeatureAnimationZoom v-else-if="pickedAnimation === 'zoom'" />
           <VlGeomPoint :coordinates="position" />
           <VlStyleChart :data="[0.2, 0.8]" />
         </VlFeature>
@@ -44,6 +102,11 @@
         zoom: 14,
         center: [15.07733892913811, 37.52482234534241],
         position: [15.07733892913811, 37.52482234534241],
+        animations: ['none', 'bounce', 'drop', 'fade', 'path', 'pulse', 'shake', 'show', 'slide', 'teleport', 'throw', 'zoom'],
+        pickedAnimation: 'none',
+        geolocationButton: true,
+        currentPosition: null,
+        overlayMenuPosition: 'left',
         extent: null,
         features: [],
         selectedFeatures: [],
@@ -71,6 +134,9 @@
     watch: {
       mapLock () {
         this.lockToggle()
+      },
+      overlayMenuPosition () {
+        console.log('overlayMenuPosition', this.overlayMenuPosition === 'right')
       },
     },
     methods: {

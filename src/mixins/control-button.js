@@ -10,12 +10,15 @@ export default {
   },
   data () {
     return {
-      currentClassName: '',
+      currentClassName: 'ol-control',
       currentTitle: '',
       currentName: '',
     }
   },
   methods: {
+    createButton () {
+      throw new Error(`${this.vmName} not implemented method: createButton()`)
+    },
     /**
      * Create Button
      * @return {module:ol-ext/control/Button~Button}
@@ -42,6 +45,8 @@ export default {
      * @protected
      */
     async unmount () {
+      this.$controlsContainer?.removeControl(this.$controlButton)
+
       return this::olCmp.methods.unmount()
     },
     /**

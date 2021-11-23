@@ -22,6 +22,10 @@
           return []
         },
       },
+      type: {
+        type: String,
+        default: 'pie',
+      },
     },
     created () {
       this::defineServices()
@@ -30,7 +34,7 @@
       createStyle () {
         return new Style({
           image: new Chart({
-            type: 'pie',
+            type: this.type,
             radius: 50,
             data: this.data,
             rotateWithView: true,

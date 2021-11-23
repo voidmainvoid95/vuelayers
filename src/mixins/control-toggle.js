@@ -5,9 +5,6 @@ export default {
   mixins: [
     controlButton,
   ],
-  created () {
-    this::defineServices()
-  },
   mounted () {
     this.currentClassName = `${this.$el.className} ${this.currentClassName} ol-toggle`
   },
@@ -17,13 +14,27 @@ export default {
      * @return {module:ol-ext/control/Toggle~Toggle}
      * @protected
      */
-    async createOlObject () {
+    createButton () {
       return this.createToggle()
     },
     /**
      * @return {Promise<Toggle>}
      */
     resolveToggle: controlButton.methods.resolveButton,
+    /**
+     * @return {Promise<void>}
+     * @protected
+     */
+    async mount () {
+      return this::controlButton.methods.mount()
+    },
+    /**
+     * @return {Promise<void>}
+     * @protected
+     */
+    async unmount () {
+      return this::controlButton.methods.unmount()
+    },
     /**
      * @return {Object}
      * @protected
@@ -38,13 +49,4 @@ export default {
       )
     },
   },
-}
-
-function defineServices () {
-  Object.defineProperties(this, {
-    $controlToggle: {
-      enumerable: true,
-      get: () => this.$olObject,
-    },
-  })
 }
