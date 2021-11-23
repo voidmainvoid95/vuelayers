@@ -5,11 +5,7 @@
       :default-interactions="interactionOptions"
       data-projection="EPSG:4326">
       <VlSearchBarNominatim />
-      <VlOverlayMenu>
-        <button>
-          Press me
-        </button>
-      </VlOverlayMenu>
+      <VlOverlayMenu />
       <VlGeolocationButton @position="test" />
       <VlView
         :zoom.sync="zoom"
@@ -21,7 +17,8 @@
       <VlLayerVector>
         <VlFeature>
           <VlFeatureAnimationPulse />
-          <VlGeomPoint :coordinates="center" />
+          <VlGeomPoint :coordinates="position" />
+          <VlStyleChart :data="[0.2, 0.8]" />
         </VlFeature>
       </VlLayerVector>
       <!---
@@ -46,6 +43,7 @@
       return {
         zoom: 14,
         center: [15.07733892913811, 37.52482234534241],
+        position: [15.07733892913811, 37.52482234534241],
         extent: null,
         features: [],
         selectedFeatures: [],
