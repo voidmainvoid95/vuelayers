@@ -3,15 +3,13 @@
     :id="vmId"
     :class="vmClass"
     style="display: none !important;">
-    <i ref="toggle">
+    <div ref="toggle">
       <VlControlToggle
-        :class="vmClass"
+        :class-name="vmClass"
         @toggle="toggleOverlayMenu">
-        <template #icon>
-          <FontAwesomeIcon icon="bars" />
-        </template>
+        <FontAwesomeIcon icon="bars" />
       </VlControlToggle>
-    </i>
+    </div>
     <div
       ref="content"
       class="content">
@@ -33,7 +31,7 @@
   import Overlay from 'ol-ext/control/Overlay'
   import { Zoom } from 'ol/control'
   import olCmp from '../../mixins/ol-cmp'
-  import { mergeDescriptors } from '../../utils'
+  import { mergeDescriptors, identity } from '../../utils'
   import stubVNode from '../../mixins/stub-vnode'
   import VlControlToggle from './toggle'
 
@@ -60,6 +58,7 @@
         type: Boolean,
         default: false,
       },
+      className: String,
     },
     data () {
       return {
@@ -68,13 +67,31 @@
         currentHideOnClick: false,
       }
     },
+    computed: {
+      classes () {
+        const classes = [this.className, this.vmClass, 'menu'].filter(identity)
+        if (this.right) {
+          classes.push('slide-right')
+          classes.push('right')
+        } else {
+          classes.push('slide-left')
+          classes.push('left')
+        }
+        return classes
+      },
+    },
+    watch: {
+      right () {
+        this.updateDefaultControls()
+        if (this.right) {
+          this.$overlayMenu.element.className = this.$overlayMenu.element.className.replace('left', 'right')
+        } else {
+          this.$overlayMenu.element.className = this.$overlayMenu.element.className.replace('right', 'left')
+        }
+      },
+    },
     created () {
       this::defineServices()
-      if (this.right) {
-        this.currentClassName = `${this.vmClass} slide-right menu right`
-      } else {
-        this.currentClassName = `${this.vmClass} slide-left menu left`
-      }
     },
     methods: {
       /**
@@ -85,19 +102,14 @@
       createOlObject () {
         return new Overlay({
           closeBox: this.currentCloseBox,
-          className: this.currentClassName,
+          className: this.classes.join(' '),
           content: this.$refs.content,
           hideOnClick: this.currentHideOnClick,
         })
       },
       resolveOverlayMenu: olCmp.methods.resolveOlObject,
       async mount () {
-        const currentControls = this.$controlsContainer.getControls()
-        currentControls.forEach(control => {
-          if (control instanceof Zoom) {
-            control.element.className += ` ${this.vmClass} ${this.right ? 'right' : 'left'}`
-          }
-        })
+        this.updateDefaultControls()
         this.$controlsContainer?.addControl(this.$overlayMenu)
         return this::olCmp.methods.mount()
       },
@@ -124,6 +136,18 @@
       toggleOverlayMenu () {
         this.$overlayMenu.toggle()
       },
+      updateDefaultControls () {
+        const currentControls = this.$controlsContainer.getControls()
+        currentControls.forEach(control => {
+          if (control instanceof Zoom) {
+            if (control.element.className.includes(this.vmClass)) {
+              if (this.right) {
+                control.element.className = control.element.className.replace('left', '')
+              } else { control.element.className = control.element.className += 'left' }
+            } else { control.element.className += ` ${this.vmClass} ${this.right ? '' : 'left'}` }
+          }
+        })
+      },
     },
   }
 
@@ -132,10 +156,6 @@
       $overlayMenu: {
         enumerable: true,
         get: () => this.$olObject,
-      },
-      $overlayMenuToggle: {
-        enumerable: true,
-        get: () => this.$toggle,
       },
       $controlsContainer: {
         enumerable: true,
@@ -164,12 +184,12 @@
   {
     left: auto!important;
   }
-  .vl-overlay-menu.ol-toggle
+  .vl-overlay-menu.ol-control.ol-toggle
   {
     top: 0.5em;
     left: 0.5em;
   }
-  .vl-overlay-menu.ol-toggle.right
+  .vl-overlay-menu.ol-control.ol-toggle.right
   {
     top: 0.5em;
     left: auto;

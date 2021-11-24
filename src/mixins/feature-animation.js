@@ -45,7 +45,7 @@ export default {
      * @return {module:ol-ext/featureanimation/FeatureAnimation~FeatureAnimation}
      * @protected
      */
-    async createOlObject () {
+    createOlObject () {
       const newFeatureAnimation = this.createFeatureAnimation()
       newFeatureAnimation.on('animationstart', event => {
         this.$emit('animationstart', event)

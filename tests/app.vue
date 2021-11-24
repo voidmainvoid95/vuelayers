@@ -5,7 +5,7 @@
       :default-interactions="interactionOptions"
       data-projection="EPSG:4326">
       <VlSearchBarNominatim />
-      <VlOverlayMenu :right="overlayMenuPosition === 'right'">
+      <VlOverlayMenu :right="menuRight">
         <div>
           Choose an animation:
           <select
@@ -62,7 +62,7 @@
         <VlSourceOsm @created="sourceCreated" />
       </VlLayerTile>
 
-      <VlLayerVector>
+      <VlLayerVector class-name="pippo">
         <VlFeature>
           <VlFeatureAnimationBounce v-if="pickedAnimation === 'bounce'" />
           <VlFeatureAnimationDrop v-else-if="pickedAnimation === 'drop'" />
@@ -130,6 +130,11 @@
         },
         mapLock: false,
       }
+    },
+    computed: {
+      menuRight () {
+        return this.overlayMenuPosition === 'right'
+      },
     },
     watch: {
       mapLock () {

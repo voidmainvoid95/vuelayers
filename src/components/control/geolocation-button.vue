@@ -1,9 +1,8 @@
 <template>
   <i
     :id="vmId"
-    ref="icon"
     :class="vmClass">
-    <slot name="icon">
+    <slot>
       <FontAwesomeIcon icon="location-arrow" />
     </slot>
   </i>
@@ -21,15 +20,14 @@
     methods: {
       createToggle () {
         const newGeolocationButton = new GeolocationButton({
-          html: this.$refs.toggle,
-          className: this.currentClassName,
+          className: this.classes.join(' '),
           title: this.currentTitle,
           delay: 2000,
         })
         newGeolocationButton.on('position', event => {
           if (event.coordinate) { this.$emit('position', event.coordinate) }
         })
-        newGeolocationButton.getButtonElement().appendChild(this.$refs.icon)
+        newGeolocationButton.getButtonElement().appendChild(this.$el)
         return newGeolocationButton
       },
       async unmount () {

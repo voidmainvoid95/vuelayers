@@ -5,10 +5,16 @@ export default {
   mixins: [
     controlButton,
   ],
-  mounted () {
-    this.currentClassName = `${this.$el.className} ${this.currentClassName} ol-toggle`
+  computed: {
+    classes () {
+      return [
+        ...this::controlButton.computed.classes(),
+        'ol-toggle',
+      ]
+    },
   },
   methods: {
+
     /**
      * Create Toggle
      * @return {module:ol-ext/control/Toggle~Toggle}

@@ -1,10 +1,8 @@
 <template>
   <i
     :id="vmId"
-    style="display: none!important;">
-    <i ref="toggle">
-      <slot name="icon" />
-    </i>
+    :class="vmClass">
+    <slot />
   </i>
 </template>
 
@@ -19,8 +17,8 @@
     methods: {
       createToggle () {
         return new Toggle({
-          html: this.$refs.toggle,
-          className: this.currentClassName,
+          html: this.$el,
+          className: this.classes.join(' '),
           title: this.currentTitle,
           onToggle: () => { this.$emit('toggle') },
         })

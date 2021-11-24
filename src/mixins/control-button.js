@@ -1,4 +1,4 @@
-import { mergeDescriptors } from '../utils'
+import { mergeDescriptors, identity } from '../utils'
 import olCmp from './ol-cmp'
 
 export default {
@@ -8,12 +8,23 @@ export default {
   created () {
     this::defineServices()
   },
+  props: {
+    className: String,
+  },
   data () {
     return {
-      currentClassName: 'ol-control',
       currentTitle: '',
       currentName: '',
     }
+  },
+  computed: {
+    classes () {
+      return [
+        this.className,
+        this.vmClass,
+        'ol-control',
+      ].filter(identity)
+    },
   },
   methods: {
     createButton () {
@@ -24,7 +35,7 @@ export default {
      * @return {module:ol-ext/control/Button~Button}
      * @protected
      */
-    async createOlObject () {
+    createOlObject () {
       return this.createButton()
     },
     /**
