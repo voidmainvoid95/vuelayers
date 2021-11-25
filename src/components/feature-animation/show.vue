@@ -7,7 +7,8 @@
 
 <script>
   import Show from 'ol-ext/featureanimation/Show'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
+
   export default {
     name: 'VlFeatureAnimationShow',
     mixins: [

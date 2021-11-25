@@ -7,12 +7,12 @@
 
 <script>
   import SearchPhoton from 'ol-ext/control/SearchPhoton'
-  import searchBar from '../../mixins/search-bar'
+  import { controlSearchBar } from '../../mixins'
 
   export default {
     name: 'VlSearchBarPhoton',
     mixins: [
-      searchBar,
+      controlSearchBar,
     ],
     props: {
       url: {

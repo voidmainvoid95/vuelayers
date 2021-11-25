@@ -7,7 +7,8 @@
 
 <script>
   import None from 'ol-ext/featureanimation/None'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
+
   export default {
     name: 'VlFeatureAnimationNone',
     mixins: [

@@ -7,11 +7,12 @@
 
 <script>
   import Drop from 'ol-ext/featureanimation/Drop'
-  import animation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
+
   export default {
     name: 'VlFeatureAnimationDrop',
     mixins: [
-      animation,
+      featureAnimation,
     ],
     props: {
       speed: {

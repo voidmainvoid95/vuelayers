@@ -7,7 +7,8 @@
 
 <script>
   import Fade from 'ol-ext/featureanimation/Fade'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
+
   export default {
     name: 'VlFeatureAnimationFade',
     mixins: [

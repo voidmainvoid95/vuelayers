@@ -17,8 +17,16 @@
     mixins: [
       controlToggle,
     ],
+    computed: {
+      classes () {
+        return [
+          this.className,
+          this.vmClass,
+        ]
+      },
+    },
     methods: {
-      createToggle () {
+      createControl () {
         const newGeolocationButton = new GeolocationButton({
           className: this.classes.join(' '),
           title: this.currentTitle,
@@ -31,7 +39,6 @@
         return newGeolocationButton
       },
       async unmount () {
-        console.log('REMOVING BUTTON: ', this)
         return this::controlToggle.methods.unmount()
       },
     },

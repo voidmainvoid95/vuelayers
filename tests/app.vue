@@ -76,7 +76,11 @@
           <VlFeatureAnimationThrow v-else-if="pickedAnimation === 'throw'" />
           <VlFeatureAnimationZoom v-else-if="pickedAnimation === 'zoom'" />
           <VlGeomPoint :coordinates="position" />
-          <VlStyleChart :data="[0.2, 0.8]" />
+          <VlStyle>
+            <VlStyleChart
+              :data="[0.2, 0.3, 0.4, 0.1]"
+              type="pie" />
+          </VlStyle>
         </VlFeature>
       </VlLayerVector>
       <!---

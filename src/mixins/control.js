@@ -1,4 +1,4 @@
-import { mergeDescriptors, identity } from '../utils'
+import { mergeDescriptors } from '../utils'
 import olCmp from './ol-cmp'
 
 export default {
@@ -8,46 +8,23 @@ export default {
   created () {
     this::defineServices()
   },
-  props: {
-    className: String,
-  },
-  data () {
-    return {
-      currentTitle: '',
-      currentName: '',
-    }
-  },
-  computed: {
-    classes () {
-      return [
-        this.className,
-        this.vmClass,
-        'ol-control',
-      ].filter(identity)
-    },
-  },
   methods: {
-    createButton () {
-      throw new Error(`${this.vmName} not implemented method: createButton()`)
+    createControl () {
+      throw new Error(`${this.vmName} not implemented method: createControl()`)
     },
-    /**
-     * Create Button
-     * @return {module:ol-ext/control/Button~Button}
-     * @protected
-     */
     createOlObject () {
-      return this.createButton()
+      return this.createControl()
     },
     /**
-     * @return {Promise<Button>}
+     * @return {Promise<Toggle>}
      */
-    resolveButton: olCmp.methods.resolveOlObject,
+    resolveControl: olCmp.methods.resolveOlObject,
     /**
      * @return {Promise<void>}
      * @protected
      */
     async mount () {
-      this.$controlsContainer?.addControl(this.$controlButton)
+      this.$controlsContainer?.addControl(this.$control)
 
       return this::olCmp.methods.mount()
     },
@@ -56,7 +33,7 @@ export default {
      * @protected
      */
     async unmount () {
-      this.$controlsContainer?.removeControl(this.$controlButton)
+      this.$controlsContainer?.removeControl(this.$control)
 
       return this::olCmp.methods.unmount()
     },
@@ -69,7 +46,7 @@ export default {
       return mergeDescriptors(
         this::olCmp.methods.getServices(),
         {
-          get controlButtonVm () { return vm },
+          get controlToggleVm () { return vm },
         },
       )
     },
@@ -78,7 +55,7 @@ export default {
 
 function defineServices () {
   Object.defineProperties(this, {
-    $controlButton: {
+    $control: {
       enumerable: true,
       get: () => this.$olObject,
     },

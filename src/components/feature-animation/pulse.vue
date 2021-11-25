@@ -7,7 +7,7 @@
 
 <script>
   import Zoom from 'ol-ext/featureanimation/Zoom'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
 
   export default {
     name: 'VlFeatureAnimationPulse',

@@ -1,5 +1,5 @@
 import { mergeDescriptors } from '../utils'
-import olCmp from './ol-cmp'
+import control from './control'
 import GeoJSON from 'ol/format/GeoJSON'
 import getCenter from 'ol/extent'
 import {
@@ -8,7 +8,7 @@ import {
 
 export default {
   mixins: [
-    olCmp,
+    control,
   ],
   props: {
     disableDefaultSelectHandler: {
@@ -69,7 +69,6 @@ export default {
     }
   },
   created () {
-    this::defineServices()
     this.currentTarget = this.target || this.currentTarget
     this.currentTitle = this.title || this.currentTitle
     this.currentReverseTitle = this.reverseTitle || this.currentReverseTitle
@@ -89,7 +88,10 @@ export default {
      * @return {module:ol-ext/control/SearchBar~SearchBar}
      * @protected
      */
-    async createOlObject () {
+    createSearchBar () {
+      throw new Error(`${this.vmName} not implemented method: createSearchBar()`)
+    },
+    createControl () {
       const newSearchBar = this.createSearchBar()
       newSearchBar.on('select', event => {
         if (this.disableDefaultSelectHandler) { this.$emit('select', event) } else { this.defaultSelectHandler(event) }
@@ -99,22 +101,20 @@ export default {
     /**
      * @return {Promise<SearchBar>}
      */
-    resolveSearchBar: olCmp.methods.resolveOlObject,
+    resolveSearchBar: control.methods.resolveControl,
     /**
      * @return {Promise<void>}
      * @protected
      */
     async mount () {
-      this.$controlsContainer?.addControl(this.$searchBar)
-
-      return this::olCmp.methods.mount()
+      return this::control.methods.mount()
     },
     /**
      * @return {Promise<void>}
      * @protected
      */
     async unmount () {
-      return this::olCmp.methods.unmount()
+      return this::control.methods.unmount()
     },
     /**
      * @return {Object}
@@ -123,7 +123,7 @@ export default {
     getServices () {
       const vm = this
       return mergeDescriptors(
-        this::olCmp.methods.getServices(),
+        this::control.methods.getServices(),
         {
           get searchBarVm () { return vm },
         },
@@ -155,17 +155,4 @@ export default {
       }
     },
   },
-}
-
-function defineServices () {
-  Object.defineProperties(this, {
-    $searchBar: {
-      enumerable: true,
-      get: () => this.$olObject,
-    },
-    $controlsContainer: {
-      enumerable: true,
-      get: () => this.$services?.controlsContainer,
-    },
-  })
 }

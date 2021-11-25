@@ -7,7 +7,8 @@
 
 <script>
   import Bounce from 'ol-ext/featureanimation/Bounce'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
+
   export default {
     name: 'VlFeatureAnimationBounce',
     mixins: [

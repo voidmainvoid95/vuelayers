@@ -1,45 +1,36 @@
 import { mergeDescriptors } from '../utils'
-import controlButton from './control-button'
+import control from './control'
 
 export default {
   mixins: [
-    controlButton,
+    control,
   ],
-  computed: {
-    classes () {
-      return [
-        ...this::controlButton.computed.classes(),
-        'ol-toggle',
-      ]
+  props: {
+    className: String,
+  },
+  watch: {
+    className (newVal, oldVal) {
+      this.$control.element.className = this.$control.element.className.replace(oldVal, newVal)
     },
   },
   methods: {
-
-    /**
-     * Create Toggle
-     * @return {module:ol-ext/control/Toggle~Toggle}
-     * @protected
-     */
-    createButton () {
-      return this.createToggle()
-    },
     /**
      * @return {Promise<Toggle>}
      */
-    resolveToggle: controlButton.methods.resolveButton,
+    resolveToggle: control.methods.resolveControl,
     /**
      * @return {Promise<void>}
      * @protected
      */
     async mount () {
-      return this::controlButton.methods.mount()
+      return this::control.methods.mount()
     },
     /**
      * @return {Promise<void>}
      * @protected
      */
     async unmount () {
-      return this::controlButton.methods.unmount()
+      return this::control.methods.unmount()
     },
     /**
      * @return {Object}
@@ -48,7 +39,7 @@ export default {
     getServices () {
       const vm = this
       return mergeDescriptors(
-        this::controlButton.methods.getServices(),
+        this::control.methods.getServices(),
         {
           get controlToggleVm () { return vm },
         },

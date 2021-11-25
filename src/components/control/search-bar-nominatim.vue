@@ -11,12 +11,12 @@
 
 <script>
   import SearchNominatim from 'ol-ext/control/SearchNominatim'
-  import searchBar from '../../mixins/search-bar'
+  import { controlSearchBar } from '../../mixins'
 
   export default {
     name: 'VlSearchBarNominatim',
     mixins: [
-      searchBar,
+      controlSearchBar,
     ],
     props: {
       url: {

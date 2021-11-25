@@ -7,7 +7,8 @@
 
 <script>
   import Shake from 'ol-ext/featureanimation/Shake'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
+
   export default {
     name: 'VlFeatureAnimationShake',
     mixins: [

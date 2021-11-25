@@ -55,4 +55,5 @@ export {
   StrokeStyle,
   Style,
   TextStyle,
+  ChartStyle,
 }

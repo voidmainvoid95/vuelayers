@@ -7,7 +7,8 @@
 
 <script>
   import Teleport from 'ol-ext/featureanimation/Teleport'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
+
   export default {
     name: 'VlFeatureAnimationTeleport',
     mixins: [

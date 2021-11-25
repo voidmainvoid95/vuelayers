@@ -7,7 +7,8 @@
 
 <script>
   import Throw from 'ol-ext/featureanimation/Throw'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
+
   export default {
     name: 'VlFeatureAnimationThrow',
     mixins: [

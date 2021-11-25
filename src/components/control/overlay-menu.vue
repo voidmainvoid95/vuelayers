@@ -5,7 +5,7 @@
     style="display: none !important;">
     <div ref="toggle">
       <VlControlToggle
-        :class-name="vmClass"
+        :class-name="toggleClasses"
         @toggle="toggleOverlayMenu">
         <FontAwesomeIcon icon="bars" />
       </VlControlToggle>
@@ -16,8 +16,8 @@
       <div style="margin-bottom: 0.5em">
         <slot
           name="top"
-          :overlayMenu="$overlayMenu">
-          <i @click="$overlayMenu.toggle()">
+          :control="$control">
+          <i @click="$control.toggle()">
             <FontAwesomeIcon icon="bars" />
           </i>
         </slot>
@@ -30,7 +30,7 @@
 <script>
   import Overlay from 'ol-ext/control/Overlay'
   import { Zoom } from 'ol/control'
-  import olCmp from '../../mixins/ol-cmp'
+  import { control } from '../../mixins'
   import { mergeDescriptors, identity } from '../../utils'
   import stubVNode from '../../mixins/stub-vnode'
   import VlControlToggle from './toggle'
@@ -42,7 +42,7 @@
     },
     mixins: [
       stubVNode,
-      olCmp,
+      control,
     ],
     stubVNode: {
       empty: false,
@@ -63,7 +63,6 @@
     data () {
       return {
         currentCloseBox: false,
-        currentClassName: '',
         currentHideOnClick: false,
       }
     },
@@ -79,19 +78,19 @@
         }
         return classes
       },
+      toggleClasses () {
+        return [this.vmClass, this.right ? 'right' : 'left'].join(' ')
+      },
     },
     watch: {
       right () {
         this.updateDefaultControls()
         if (this.right) {
-          this.$overlayMenu.element.className = this.$overlayMenu.element.className.replace('left', 'right')
+          this.$control.element.className = this.$control.element.className.replace('left', 'right')
         } else {
-          this.$overlayMenu.element.className = this.$overlayMenu.element.className.replace('right', 'left')
+          this.$control.element.className = this.$control.element.className.replace('right', 'left')
         }
       },
-    },
-    created () {
-      this::defineServices()
     },
     methods: {
       /**
@@ -107,18 +106,17 @@
           hideOnClick: this.currentHideOnClick,
         })
       },
-      resolveOverlayMenu: olCmp.methods.resolveOlObject,
+      resolveOverlayMenu: control.methods.resolveControl,
       async mount () {
         this.updateDefaultControls()
-        this.$controlsContainer?.addControl(this.$overlayMenu)
-        return this::olCmp.methods.mount()
+        return this::control.methods.mount()
       },
       /**
        * @return {Promise<void>}
        * @protected
        */
       async unmount () {
-        return this::olCmp.methods.unmount()
+        return this::control.methods.unmount()
       },
       /**
        * @return {Object}
@@ -127,14 +125,14 @@
       getServices () {
         const vm = this
         return mergeDescriptors(
-          this::olCmp.methods.getServices(),
+          this::control.methods.getServices(),
           {
             get overlayMenuVm () { return vm },
           },
         )
       },
       toggleOverlayMenu () {
-        this.$overlayMenu.toggle()
+        this.$control.toggle()
       },
       updateDefaultControls () {
         const currentControls = this.$controlsContainer.getControls()
@@ -149,19 +147,6 @@
         })
       },
     },
-  }
-
-  function defineServices () {
-    Object.defineProperties(this, {
-      $overlayMenu: {
-        enumerable: true,
-        get: () => this.$olObject,
-      },
-      $controlsContainer: {
-        enumerable: true,
-        get: () => this.$services?.controlsContainer,
-      },
-    })
   }
 </script>
 <style>
@@ -184,7 +169,7 @@
   {
     left: auto!important;
   }
-  .vl-overlay-menu.ol-control.ol-toggle
+  .vl-overlay-menu.ol-control.ol-toggle.left
   {
     top: 0.5em;
     left: 0.5em;
@@ -195,7 +180,7 @@
     left: auto;
     right: 0.5em;
   }
-  .vl-overlay-menu.toggle button
+  .vl-overlay-menu.ol-control.ol-toggle button
   {
     color: #fff;
   }

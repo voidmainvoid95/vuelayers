@@ -7,7 +7,7 @@
 
 <script>
   import Blink from 'ol-ext/featureanimation/Blink'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
 
   export default {
     name: 'VlFeatureAnimationBlink',

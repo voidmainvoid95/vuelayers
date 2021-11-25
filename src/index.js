@@ -20,7 +20,6 @@ import {
   Overlay,
   Control,
   RotateInteraction,
-  SearchBar,
   SelectInteraction,
   SnapInteraction,
   SputnikSource,
@@ -91,7 +90,6 @@ export default function plugin (Vue, options = {}) {
   Vue.use(Overlay, options)
   Vue.use(RotateInteraction, options)
   Vue.use(SelectInteraction, options)
-  Vue.use(SearchBar, options)
   Vue.use(SnapInteraction, options)
   Vue.use(SputnikSource, options)
   Vue.use(StamenSource, options)
@@ -135,7 +133,6 @@ export {
   Overlay,
   RotateInteraction,
   SelectInteraction,
-  SearchBar,
   SnapInteraction,
   SputnikSource,
   StamenSource,

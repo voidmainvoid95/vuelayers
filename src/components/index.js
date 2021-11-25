@@ -20,7 +20,6 @@ import * as Overlay from './overlay'
 import * as Control from './control'
 import * as RotateInteraction from './rotate-interaction'
 import * as SelectInteraction from './select-interaction'
-import * as SearchBar from './search-bar'
 import * as SnapInteraction from './snap-interaction'
 import * as SputnikSource from './sputnik-source'
 import * as StamenSource from './stamen-source'
@@ -61,7 +60,6 @@ export {
   Overlay,
   RotateInteraction,
   SelectInteraction,
-  SearchBar,
   SnapInteraction,
   SputnikSource,
   StamenSource,

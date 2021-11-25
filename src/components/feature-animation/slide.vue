@@ -7,7 +7,8 @@
 
 <script>
   import Slide from 'ol-ext/featureanimation/Slide'
-  import featureAnimation from '../../mixins/feature-animation'
+  import { featureAnimation } from '../../mixins'
+
   export default {
     name: 'VlFeatureAnimationSlide',
     mixins: [
