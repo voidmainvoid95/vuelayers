@@ -11,6 +11,13 @@
   * [vl-overlay](/docs/component/overlay.md)
   * [vl-view](/docs/component/view.md)
 
+  * Control
+    * [vl-geolocation-button](/docs/component/geolocation-button.md) 
+    * [vl-overlay-menu](/docs/component/overlay-menu.md)
+    * [vl-search-bar-nominatim](/docs/component/search-bar-nominatim.md)
+    * [vl-search-bar-photon](/docs/component/search-bar-photon.md)
+    * [vl-zoom](/docs/component/control-zoom.md)
+
   * Layer
 
     * [vl-layer-image](/docs/component/image-layer.md)
@@ -50,6 +57,7 @@
   * Style
 
     * [vl-style-box](/docs/component/style-box.md)
+    * [vl-style-chart](/docs/component/chart-style.md)
     * [vl-style-circle](/docs/component/circle-style.md)
     * [vl-style-fill](/docs/component/fill-style.md)
     * [vl-style-func](/docs/component/func-style.md)
@@ -57,6 +65,20 @@
     * [vl-style-reg-shape](/docs/component/reg-shape-style.md)
     * [vl-style-stroke](/docs/component/stroke-style.md)
     * [vl-style-text](/docs/component/text-style.md)
+  
+  * FeatureAnimation  
+    * [vl-feature-animation-blink](/docs/component/feature-animation-blink.md)
+    * [vl-feature-animation-bounce](/docs/component/feature-animation-bounce.md)
+    * [vl-feature-animation-drop](/docs/component/feature-animation-drop.md)
+    * [vl-feature-animation-drop](/docs/component/feature-animation-fade.md)
+    * [vl-feature-animation-path](/docs/component/feature-animation-path.md)
+    * [vl-feature-animation-pulse](/docs/component/feature-animation-pulse.md)
+    * [vl-feature-animation-shake](/docs/component/feature-animation-shake.md)
+    * [vl-feature-animation-shake](/docs/component/feature-animation-show.md)
+    * [vl-feature-animation-slide](/docs/component/feature-animation-slide.md)
+    * [vl-feature-animation-teleport](/docs/component/feature-animation-teleport.md)
+    * [vl-feature-animation-throw](/docs/component/feature-animation-throw.md)
+    * [vl-feature-animation-zoom](/docs/component/feature-animation-zoom.md)
 
 * Mixins
   
