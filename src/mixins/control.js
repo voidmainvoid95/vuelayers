@@ -1,10 +1,21 @@
 import { mergeDescriptors } from '../utils'
 import olCmp from './ol-cmp'
+import stubVNode from './stub-vnode'
 
 export default {
   mixins: [
+    stubVNode,
     olCmp,
   ],
+  stubVNode: {
+    empty: false,
+    attrs () {
+      return {
+        id: this.vmId,
+        class: this.vmClass,
+      }
+    },
+  },
   created () {
     this::defineServices()
   },

@@ -1,10 +1,21 @@
 import { mergeDescriptors } from '../utils'
+import stubVNode from './stub-vnode'
 import olCmp from './ol-cmp'
 
 export default {
   mixins: [
+    stubVNode,
     olCmp,
   ],
+  stubVNode: {
+    empty: false,
+    attrs () {
+      return {
+        id: this.vmId,
+        class: this.vmClass,
+      }
+    },
+  },
   props: {
     duration: {
       type: Number,

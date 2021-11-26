@@ -1,12 +1,12 @@
 import { Collection } from 'ol'
 import CollectionEventType from 'ol/CollectionEventType'
-import { Control, defaults as createDefaultControls } from 'ol/control'
+import { Control } from 'ol/control'
 import { getUid } from 'ol/util'
 import { merge as mergeObs } from 'rxjs'
 import { map as mapObs, tap } from 'rxjs/operators'
 import { getControlId, initializeControl } from '../ol-ext'
 import { bufferDebounceTime, fromOlChangeEvent as obsFromOlChangeEvent, fromOlEvent as obsFromOlEvent } from '../rx-ext'
-import { find, forEach, instanceOf, isArray, isPlainObject } from '../utils'
+import { find, forEach, instanceOf } from '../utils'
 import identMap from './ident-map'
 import { FRAME_TIME, makeChangeOrRecreateWatchers } from './ol-cmp'
 import rxSubs from './rx-subs'
@@ -66,34 +66,6 @@ export default {
      */
     subscribeAll () {
       this::subscribeToCollectionEvents()
-    },
-    /**
-     * @param {ControlLike[]|module:ol/Collection~Collection<ControlLike>} defaultControls
-     */
-    initDefaultControls (defaultControls) {
-      this.getControls().forEach(control => {
-        if (control.get('vl_default')) {
-          this.removeControl(control)
-        }
-      })
-
-      let controls
-      if (isArray(defaultControls) || defaultControls instanceof Collection) {
-        controls = defaultControls
-      } else if (defaultControls !== false) {
-        controls = createDefaultControls(
-          isPlainObject(defaultControls)
-            ? defaultControls
-            : undefined,
-        )
-      }
-      if (controls) {
-        controls.forEach(control => {
-          control.set('vl_default', true)
-        },
-        )
-        this.addControls(controls)
-      }
     },
     /**
      * @param {ControlLike} control

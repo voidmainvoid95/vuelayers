@@ -31,7 +31,6 @@
   import { Zoom } from 'ol/control'
   import { control } from '../../mixins'
   import { mergeDescriptors, identity } from '../../utils'
-  import stubVNode from '../../mixins/stub-vnode'
   import ControlToggle from './toggle.vue'
 
   export default {
@@ -40,18 +39,8 @@
       ControlToggle,
     },
     mixins: [
-      stubVNode,
       control,
     ],
-    stubVNode: {
-      empty: false,
-      attrs () {
-        return {
-          id: this.vmId,
-          class: this.vmClass,
-        }
-      },
-    },
     props: {
       right: {
         type: Boolean,

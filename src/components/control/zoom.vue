@@ -1,7 +1,8 @@
 <template>
   <i
     :id="vmId"
-    :class="vmClass" />
+    :class="vmClass"
+    style="display: none!important;" />
 </template>
 
 <script>

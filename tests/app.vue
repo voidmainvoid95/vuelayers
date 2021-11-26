@@ -3,13 +3,10 @@
     <VlMap
       ref="map"
       :default-interactions="interactionOptions"
-      :default-controls="false"
       data-projection="EPSG:4326">
       <VlSearchBarNominatim />
-      <VlZoom />
       <VlControlBar>
         <VlFullScreen v-if="fullscreenButton" />
-        <VlRotate />
         <VlGeolocationButton
           v-if="geolocationButton"
           @position="value => $data.currentPosition = value" />
