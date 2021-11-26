@@ -55,7 +55,6 @@
           lang: this.currentLang,
           position: this.currentPosition,
           getTitle: this.getTitle,
-          target: this.currentTarget,
           title: this.currentTitle,
           reverseTitle: this.currentReverseTitle,
           placeholder: this.currentPlaceholder,

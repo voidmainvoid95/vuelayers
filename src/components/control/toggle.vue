@@ -21,7 +21,7 @@
           html: this.$el,
           className: this.className,
           title: this.currentTitle,
-          onToggle: () => { this.$emit('toggle') },
+          onToggle: (event) => { this.$emit('toggle', event) },
         })
       },
     },

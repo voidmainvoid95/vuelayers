@@ -3,13 +3,12 @@
     :id="vmId"
     :class="vmClass"
     style="display: none !important;">
-    <div ref="toggle">
-      <VlControlToggle
-        :class-name="toggleClasses"
-        @toggle="toggleOverlayMenu">
-        <FontAwesomeIcon icon="bars" />
-      </VlControlToggle>
-    </div>
+    <ControlToggle
+      ref="toggle"
+      :class-name="toggleClasses"
+      @toggle="$control.toggle()">
+      <FontAwesomeIcon icon="bars" />
+    </ControlToggle>
     <div
       ref="content"
       class="content">
@@ -33,12 +32,12 @@
   import { control } from '../../mixins'
   import { mergeDescriptors, identity } from '../../utils'
   import stubVNode from '../../mixins/stub-vnode'
-  import VlControlToggle from './toggle'
+  import ControlToggle from './toggle.vue'
 
   export default {
     name: 'VlOverlayMenu',
     components: {
-      VlControlToggle,
+      ControlToggle,
     },
     mixins: [
       stubVNode,
@@ -98,7 +97,7 @@
        * @return {module:ol-ext/control/Overlay~Overlay}
        * @protected
        */
-      createOlObject () {
+      createControl () {
         return new Overlay({
           closeBox: this.currentCloseBox,
           className: this.classes.join(' '),
@@ -130,9 +129,6 @@
             get overlayMenuVm () { return vm },
           },
         )
-      },
-      toggleOverlayMenu () {
-        this.$control.toggle()
       },
       updateDefaultControls () {
         const currentControls = this.$controlsContainer.getControls()

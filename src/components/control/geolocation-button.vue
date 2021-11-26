@@ -38,9 +38,6 @@
         newGeolocationButton.getButtonElement().appendChild(this.$el)
         return newGeolocationButton
       },
-      async unmount () {
-        return this::controlToggle.methods.unmount()
-      },
     },
   }
 </script>

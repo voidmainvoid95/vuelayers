@@ -3,9 +3,20 @@
     <VlMap
       ref="map"
       :default-interactions="interactionOptions"
+      :default-controls="false"
       data-projection="EPSG:4326">
       <VlSearchBarNominatim />
-      <VlOverlayMenu :right="menuRight">
+      <VlZoom />
+      <VlControlBar>
+        <VlFullScreen v-if="fullscreenButton" />
+        <VlRotate />
+        <VlGeolocationButton
+          v-if="geolocationButton"
+          @position="value => $data.currentPosition = value" />
+      </VlControlBar>
+      <VlOverlayMenu
+        ref="overlayMenu"
+        :right="menuRight">
         <div>
           Choose an animation:
           <select
@@ -25,6 +36,14 @@
           <label class="switch">
             <input
               v-model="geolocationButton"
+              type="checkbox">
+          </label>
+        </div>
+        <div>
+          FullScreen button:
+          <label class="switch">
+            <input
+              v-model="fullscreenButton"
               type="checkbox">
           </label>
         </div>
@@ -52,9 +71,6 @@
           {{ currentPosition }}
         </div>
       </VlOverlayMenu>
-      <VlGeolocationButton
-        v-if="geolocationButton"
-        @position="value => $data.currentPosition = value" />
       <VlView
         :zoom.sync="zoom"
         :center.sync="center" />
@@ -109,6 +125,7 @@
         animations: ['none', 'bounce', 'drop', 'fade', 'path', 'pulse', 'shake', 'show', 'slide', 'teleport', 'throw', 'zoom'],
         pickedAnimation: 'none',
         geolocationButton: true,
+        fullscreenButton: true,
         currentPosition: null,
         overlayMenuPosition: 'left',
         extent: null,
@@ -161,9 +178,6 @@
         this.interactionOptions.shiftDragZoom = !this.interactionOptions.shiftDragZoom
         this.interactionOptions.mouseWheelZoom = !this.interactionOptions.mouseWheelZoom
         this.interactionOptions.pinchZoom = !this.interactionOptions.pinchZoom
-      },
-      test (payload) {
-        console.log('TEST: ', payload)
       },
     },
   }

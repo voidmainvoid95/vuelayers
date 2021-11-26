@@ -46,7 +46,7 @@ export default {
       return mergeDescriptors(
         this::olCmp.methods.getServices(),
         {
-          get controlToggleVm () { return vm },
+          get controlVm () { return vm },
         },
       )
     },

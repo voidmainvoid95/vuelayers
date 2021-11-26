@@ -15,9 +15,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    target: {
-      type: String || HTMLElement,
-    },
     title: {
       type: String,
     },
@@ -69,7 +66,6 @@ export default {
     }
   },
   created () {
-    this.currentTarget = this.target || this.currentTarget
     this.currentTitle = this.title || this.currentTitle
     this.currentReverseTitle = this.reverseTitle || this.currentReverseTitle
     this.currentPlaceholder = this.placeholder || this.currentPlaceholder

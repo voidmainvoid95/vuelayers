@@ -55,7 +55,6 @@
           bounded: this.currentBounded,
           url: this.currentUrl,
           title: this.currentTitle,
-          target: this.currentTarget,
           reverseTitle: this.currentReverseTitle,
           placeholder: this.currentPlaceholder,
           inputLabel: this.currentInputLabel,
