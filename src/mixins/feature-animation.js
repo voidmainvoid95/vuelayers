@@ -1,6 +1,6 @@
 import { mergeDescriptors } from '../utils'
 import stubVNode from './stub-vnode'
-import olCmp from './ol-cmp'
+import olCmp, { makeChangeOrRecreateWatchers } from './ol-cmp'
 
 export default {
   mixins: [
@@ -17,38 +17,23 @@ export default {
     },
   },
   props: {
-    duration: {
-      type: Number,
-    },
-    reverse: {
-      type: Boolean,
-    },
-    repeat: {
-      type: Number,
-    },
-    fade: {
-      type: Function,
-    },
-    easing: {
-      type: Function,
-    },
-  },
-  data () {
-    return {
-      currentDuration: 1000,
-      currentReverse: false,
-      currentRepeat: 0,
-      currentEasing: undefined,
-      currentFade: undefined,
-    }
+    duration: Number,
+    reverse: Boolean,
+    repeat: Number,
+    fade: Function,
+    easing: Function,
   },
   created () {
     this::defineServices()
-    this.currentDuration = this.duration || this.currentDuration
-    this.currentReverse = this.reverse || this.currentReverse
-    this.currentRepeat = this.repeat || this.currentRepeat
-    this.currentEasing = this.easing || this.currentEasing
-    this.currentFade = this.fade || this.currentFade
+  },
+  watch: {
+    .../*#__PURE__*/makeChangeOrRecreateWatchers([
+      'duration',
+      'reverse',
+      'repeat',
+      'fade',
+      'easing',
+    ]),
   },
   methods: {
     /**
@@ -110,10 +95,6 @@ function defineServices () {
     $animation: {
       enumerable: true,
       get: () => this.$olObject,
-    },
-    $featureVm: {
-      enumerable: true,
-      get: () => this.$services?.featureVm,
     },
   })
 }

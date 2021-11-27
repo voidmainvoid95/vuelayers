@@ -1,17 +1,33 @@
 import { mergeDescriptors } from '../utils'
 import control from './control'
+import { makeChangeOrRecreateWatchers } from './ol-cmp'
 
 export default {
   mixins: [
     control,
   ],
   props: {
-    className: String,
+    title: String,
+    active: {
+      type: Boolean,
+      default: false,
+    },
+    disable: {
+      type: Boolean,
+      default: false,
+    },
+    autoActive: {
+      type: Boolean,
+      default: false,
+    },
   },
   watch: {
-    className (newVal, oldVal) {
-      this.$control.element.className = this.$control.element.className.replace(oldVal, newVal)
-    },
+    .../*#__PURE__*/makeChangeOrRecreateWatchers([
+      'title',
+      'active',
+      'disable',
+      'autoActive',
+    ]),
   },
   methods: {
     /**

@@ -11,7 +11,7 @@
 
 <script>
   import SearchNominatim from 'ol-ext/control/SearchNominatim'
-  import { controlSearchBar } from '../../mixins'
+  import { controlSearchBar, makeChangeOrRecreateWatchers } from '../../mixins'
 
   export default {
     name: 'VlSearchBarNominatim',
@@ -21,50 +21,49 @@
     props: {
       url: {
         type: String,
+        default: 'https://nominatim.openstreetmap.org/search',
       },
       polygon: {
         type: Boolean,
+        default: false,
       },
       bounded: {
         type: Boolean,
+        default: false,
       },
       viewbox: {
-        type: Number,
+        type: Array,
+        default: () => { undefined },
       },
     },
-    data () {
-      return {
-        currentUrl: 'https://nominatim.openstreetmap.org/search',
-        currentPolygon: false,
-        currentViewbox: 0,
-        currentBounded: undefined,
-      }
-    },
-    created () {
-      this.currentUrl = this.url || this.currentUrl
-      this.currentPolygon = this.polygon || this.currentPolygon
-      this.currentBounded = this.bounded || this.currentBounded
-      this.currentViewbox = this.viewbox || this.currentViewbox
+    watch: {
+      .../*#__PURE__*/makeChangeOrRecreateWatchers([
+        'url',
+        'polygon',
+        'bounded',
+      ], [
+        'viewbox',
+      ]),
     },
     methods: {
       createSearchBar () {
         const newSearchBar = new SearchNominatim({
           className: this.vmClass,
-          polygon: this.currentPolygon,
-          viewbox: this.currentViewbox,
-          bounded: this.currentBounded,
-          url: this.currentUrl,
-          title: this.currentTitle,
-          reverseTitle: this.currentReverseTitle,
-          placeholder: this.currentPlaceholder,
-          inputLabel: this.currentInputLabel,
-          collapsed: this.currentCollapsed,
-          noCollapse: this.currentNoCollapse,
-          typing: this.currentTyping,
-          minLength: this.currentMinLength,
-          maxItems: this.currentMaxItems,
-          centerOnSelect: this.currentCenterOnSelect,
-          zoomOnSelect: this.currentZoomOnSelect,
+          polygon: this.polygon,
+          viewbox: this.viewbox,
+          bounded: this.bounded,
+          url: this.url,
+          title: this.title,
+          reverseTitle: this.reverseTitle,
+          placeholder: this.placeholder,
+          inputLabel: this.inputLabel,
+          collapsed: this.collapsed,
+          noCollapse: this.noCollapse,
+          typing: this.typing,
+          minLength: this.minLength,
+          maxItems: this.maxItems,
+          centerOnSelect: this.centerOnSelect,
+          zoomOnSelect: this.zoomOnSelect,
         })
         newSearchBar.element.childNodes.forEach(item => {
           if (item.nodeName === 'BUTTON') { item.appendChild(this.$refs.icon) }

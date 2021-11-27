@@ -7,7 +7,7 @@
 
 <script>
   import { Zoom } from 'ol/control'
-  import { control } from '../../mixins'
+  import { control, makeChangeOrRecreateWatchers } from '../../mixins'
 
   export default {
     name: 'VlZoom',
@@ -39,11 +39,29 @@
         ]
       },
     },
+    watch: {
+      .../*#__PURE__*/makeChangeOrRecreateWatchers([
+        'duration',
+        'zoomInClassName',
+        'zoomOutClassName',
+        'zoomInLabel',
+        'zoomOutLabel',
+        'zoomInTipLabel',
+        'zoomOutTipLabel',
+        'delta',
+      ]),
+    },
     methods: {
       createControl () {
         return new Zoom({
           className: this.classes.join(' '),
           duration: this.duration,
+          zoomInClassName: this.zoomInClassName,
+          zoomOutClassName: this.zoomOutClassName,
+          zoomInLabel: this.zoomInLabel,
+          zoomOutLabel: this.zoomOutLabel,
+          zoomInTipLabel: this.zoomInTipLabel,
+          zoomOutTipLabel: this.zoomInTipLabel,
           delta: this.delta,
         })
       },

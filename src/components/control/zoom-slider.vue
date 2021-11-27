@@ -6,7 +6,7 @@
 
 <script>
   import { ZoomSlider } from 'ol/control'
-  import { control } from '../../mixins'
+  import { control, makeChangeOrRecreateWatchers } from '../../mixins'
 
   export default {
     name: 'VlZoomSlider',
@@ -14,10 +14,8 @@
       control,
     ],
     props: {
-      duration: {
-        type: Number,
-        default: 250,
-      },
+      label: String,
+      tipLabel: String,
     },
     computed: {
       classes () {
@@ -28,11 +26,18 @@
         ]
       },
     },
+    watch: {
+      .../*#__PURE__*/makeChangeOrRecreateWatchers([
+        'label',
+        'tipLabel,',
+      ]),
+    },
     methods: {
       createControl () {
         return new ZoomSlider({
           className: this.classes.join(' '),
-          duration: this.duration,
+          label: this.label,
+          tipLabel: this.tipLabel,
         })
       },
     },

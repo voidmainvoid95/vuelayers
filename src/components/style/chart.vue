@@ -26,7 +26,7 @@
 
 <script>
   import { Stroke, Style, Text } from 'ol/style'
-  import { style, strokeStyleContainer, textStyleContainer } from '../../mixins'
+  import { style, strokeStyleContainer, textStyleContainer, makeChangeOrRecreateWatchers } from '../../mixins'
   import Chart from 'ol-ext/style/Chart'
   import { assert, mergeDescriptors } from '../../utils'
   import StrokeStyle from './stroke.vue'
@@ -103,6 +103,15 @@
         }
         return labels
       },
+    },
+    watch: {
+      .../*#__PURE__*/makeChangeOrRecreateWatchers([
+        'type',
+        'radius',
+        'rotateWithView',
+      ], [
+        'data',
+      ]),
     },
     created () {
       this::defineServices()

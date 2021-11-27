@@ -17,11 +17,11 @@
     methods: {
       createFeatureAnimation () {
         return new Show({
-          duration: this.currentDuration,
-          reverse: this.currentReverse,
-          repeat: this.currentRepeat,
-          fade: this.currentFade,
-          easing: this.currentEasing,
+          duration: this.duration,
+          reverse: this.reverse,
+          repeat: this.repeat,
+          fade: this.fade,
+          easing: this.easing,
         })
       },
     },

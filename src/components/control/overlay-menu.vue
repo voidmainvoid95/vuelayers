@@ -29,7 +29,7 @@
 <script>
   import Overlay from 'ol-ext/control/Overlay'
   import { Zoom } from 'ol/control'
-  import { control } from '../../mixins'
+  import { control, makeChangeOrRecreateWatchers } from '../../mixins'
   import { mergeDescriptors, identity } from '../../utils'
   import ControlToggle from './toggle.vue'
 
@@ -46,13 +46,10 @@
         type: Boolean,
         default: false,
       },
-      className: String,
-    },
-    data () {
-      return {
-        currentCloseBox: false,
-        currentHideOnClick: false,
-      }
+      hideOnClick: {
+        type: Boolean,
+        default: false,
+      },
     },
     computed: {
       classes () {
@@ -71,14 +68,10 @@
       },
     },
     watch: {
-      right () {
-        this.updateDefaultControls()
-        if (this.right) {
-          this.$control.element.className = this.$control.element.className.replace('left', 'right')
-        } else {
-          this.$control.element.className = this.$control.element.className.replace('right', 'left')
-        }
-      },
+      .../*#__PURE__*/makeChangeOrRecreateWatchers([
+        'right',
+        'hideOnClick',
+      ]),
     },
     methods: {
       /**
@@ -88,10 +81,10 @@
        */
       createControl () {
         return new Overlay({
-          closeBox: this.currentCloseBox,
+          closeBox: false,
           className: this.classes.join(' '),
           content: this.$refs.content,
-          hideOnClick: this.currentHideOnClick,
+          hideOnClick: this.hideOnClick,
         })
       },
       resolveOverlayMenu: control.methods.resolveControl,

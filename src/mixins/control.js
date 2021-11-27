@@ -1,5 +1,5 @@
 import { mergeDescriptors } from '../utils'
-import olCmp from './ol-cmp'
+import olCmp, { makeChangeOrRecreateWatchers } from './ol-cmp'
 import stubVNode from './stub-vnode'
 
 export default {
@@ -16,8 +16,16 @@ export default {
       }
     },
   },
+  props: {
+    className: String,
+  },
   created () {
     this::defineServices()
+  },
+  watch: {
+    .../*#__PURE__*/makeChangeOrRecreateWatchers([
+      'className',
+    ]),
   },
   methods: {
     createControl () {

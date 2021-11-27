@@ -20,7 +20,10 @@
         return new Toggle({
           html: this.$el,
           className: this.className,
-          title: this.currentTitle,
+          title: this.title,
+          active: this.active,
+          disable: this.disable,
+          autoActive: this.autoActive,
           onToggle: (event) => { this.$emit('toggle', event) },
         })
       },

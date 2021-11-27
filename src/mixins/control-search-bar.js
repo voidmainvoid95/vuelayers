@@ -5,6 +5,7 @@ import getCenter from 'ol/extent'
 import {
   getMapDataProjection,
 } from '../ol-ext'
+import { makeChangeOrRecreateWatchers } from './ol-cmp'
 
 export default {
   mixins: [
@@ -15,68 +16,32 @@ export default {
       type: Boolean,
       default: false,
     },
-    title: {
-      type: String,
-    },
-    reverseTitle: {
-      type: String,
-    },
-    placeholder: {
-      type: String,
-    },
-    inputLabel: {
-      type: String,
-    },
-    collapsed: {
-      type: Boolean,
-    },
-    noCollapse: {
-      type: Boolean,
-    },
-    typing: {
-      type: Number,
-    },
-    minLength: {
-      type: Number,
-    },
-    maxItems: {
-      type: Number,
-    },
-    centerOnSelect: {
-      type: Boolean,
-    },
-    zoomOnSelect: {
-      type: Boolean,
-    },
+    title: String,
+    reverseTitle: String,
+    placeholder: String,
+    inputLabel: String,
+    collapsed: String,
+    noCollapse: String,
+    typing: Number,
+    minLength: Number,
+    maxItems: Number,
+    centerOnSelect: Boolean,
+    zoomOnSelect: Boolean,
   },
-  data () {
-    return {
-      currentTarget: '',
-      currentTitle: '',
-      currentReverseTitle: '',
-      currentPlaceholder: '',
-      currentInputLabel: '',
-      currentCollapsed: true,
-      currentNoCollapse: false,
-      currentTyping: undefined,
-      currentMinLength: undefined,
-      currentMaxItems: undefined,
-      currentCenterOnSelect: false,
-      currentZoomOnSelect: false,
-    }
-  },
-  created () {
-    this.currentTitle = this.title || this.currentTitle
-    this.currentReverseTitle = this.reverseTitle || this.currentReverseTitle
-    this.currentPlaceholder = this.placeholder || this.currentPlaceholder
-    this.currentInputLabel = this.inputLabel || this.currentInputLabel
-    this.currentCollapsed = this.collapsed || this.currentCollapsed
-    this.currentNoCollapse = this.noCollapse || this.currentNoCollapse
-    this.currentTyping = this.typing || this.currentTyping
-    this.currentMinLength = this.minLength || this.currentMinLength
-    this.currentMaxItems = this.maxItems || this.currentMaxItems
-    this.currentCenterOnSelect = this.centerOnSelect || this.currentCenterOnSelect
-    this.currentZoomOnSelect = this.zoomOnSelect || this.currentZoomOnSelect
+  watch: {
+    .../*#__PURE__*/makeChangeOrRecreateWatchers([
+      'title',
+      'reverseTitle',
+      'placeholder',
+      'inputLabel',
+      'collapsed',
+      'noCollapse',
+      'typing',
+      'minLength',
+      'maxItems',
+      'centerOnSelect',
+      'zoomOnSelect',
+    ]),
   },
   methods: {
     /**

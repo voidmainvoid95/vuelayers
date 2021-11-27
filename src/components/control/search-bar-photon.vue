@@ -7,7 +7,7 @@
 
 <script>
   import SearchPhoton from 'ol-ext/control/SearchPhoton'
-  import { controlSearchBar } from '../../mixins'
+  import { controlSearchBar, makeChangeOrRecreateWatchers } from '../../mixins'
 
   export default {
     name: 'VlSearchBarPhoton',
@@ -17,55 +17,46 @@
     props: {
       url: {
         type: String,
-      },
-      handleResponse: {
-        type: Function,
-      },
-      lang: {
-        type: String,
+        default: 'https://photon.komoot.io/api/',
       },
       position: {
         type: Boolean,
+        default: false,
       },
-      getTitle: {
-        type: Function,
-      },
+      handleResponse: Function,
+      lang: String,
+      getTitle: Function,
     },
-    data () {
-      return {
-        currentUrl: 'https://photon.komoot.io/api/',
-        currentHandleResponse: undefined,
-        currentLang: undefined,
-        currentPosition: false,
-        currentGetTitle: undefined,
-      }
-    },
-    created () {
-      this.currentUrl = this.url || this.currentUrl
-      this.currentHandleResponse = this.handleResponse || this.currentHandleResponse
-      this.currentLang = this.lang || this.currentLang
-      this.currentPosition = this.position || this.currentPosition
-      this.currentGetTitle = this.getTitle || this.currentGetTitle
+    watch: {
+      .../*#__PURE__*/makeChangeOrRecreateWatchers([
+        'url',
+        'position',
+        'bounded',
+        'lang',
+      ], [
+        'handleResponse',
+        'getTitle',
+      ]),
     },
     methods: {
       createSearchBar () {
         return new SearchPhoton({
-          url: this.currentUrl,
-          handleResponse: this.currentHandleResponse,
-          lang: this.currentLang,
-          position: this.currentPosition,
+          url: this.url,
+          handleResponse: this.handleResponse,
+          lang: this.lang,
+          position: this.position,
           getTitle: this.getTitle,
-          title: this.currentTitle,
-          reverseTitle: this.currentReverseTitle,
-          placeholder: this.currentPlaceholder,
-          inputLabel: this.currentInputLabel,
-          collapsed: this.currentCollapsed,
-          noCollapse: this.currentNoCollapse,
-          typing: this.currentTyping,
-          minLength: this.currentMinLength,
-          maxItems: this.currentMaxItems,
-          centerOnSelect: this.currentCenterOnSelect,
-          zoomOnSelect: this.currentZoomOnSelect,
+          title: this.title,
+          reverseTitle: this.reverseTitle,
+          placeholder: this.placeholder,
+          inputLabel: this.inputLabel,
+          collapsed: this.collapsed,
+          noCollapse: this.noCollapse,
+          typing: this.typing,
+          minLength: this.minLength,
+          maxItems: this.maxItems,
+          centerOnSelect: this.centerOnSelect,
+          zoomOnSelect: this.zoomOnSelect,
         })
       },
     },

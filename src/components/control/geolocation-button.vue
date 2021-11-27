@@ -10,6 +10,7 @@
 
 <script>
   import GeolocationButton from 'ol-ext/control/GeolocationButton'
+  import { makeChangeOrRecreateWatchers } from '../../mixins'
   import controlToggle from '../../mixins/control-toggle'
 
   export default {
@@ -17,6 +18,12 @@
     mixins: [
       controlToggle,
     ],
+    props: {
+      delay: {
+        type: Number,
+        default: 2000,
+      },
+    },
     computed: {
       classes () {
         return [
@@ -25,12 +32,17 @@
         ]
       },
     },
+    watch: {
+      .../*#__PURE__*/makeChangeOrRecreateWatchers([
+        'delay',
+      ]),
+    },
     methods: {
       createControl () {
         const newGeolocationButton = new GeolocationButton({
           className: this.classes.join(' '),
-          title: this.currentTitle,
-          delay: 2000,
+          title: this.title,
+          delay: this.delay,
         })
         newGeolocationButton.on('position', event => {
           if (event.coordinate) { this.$emit('position', event.coordinate) }
