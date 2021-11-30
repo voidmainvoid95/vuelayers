@@ -9,15 +9,16 @@
 
 <script>
   import Bar from 'ol-ext/control/Bar'
-  import { Control } from 'ol/control'
-  import { control } from '../../mixins'
-  import { getControlId, initializeControl } from '../../ol-ext'
-  import { find, forEach, instanceOf, mergeDescriptors } from '../../utils'
+  import { control, controlsContainer } from '../../mixins'
+  import olCmp from '../../mixins/ol-cmp'
+  import { getControlId } from '../../ol-ext'
+  import { mergeDescriptors } from '../../utils'
 
   export default {
     name: 'VlControlBar',
     mixins: [
       control,
+      controlsContainer,
     ],
     props: {
       position: {
@@ -40,76 +41,68 @@
       },
     },
     created () {
-      this._controls = []
-
       this::defineServices()
     },
     methods: {
       createControl () {
         const bar = new Bar({
           className: this.classes.join(' '),
-          controls: this._controls,
+          controls: this.getControls(),
         })
         bar.setPosition(this.position)
         return bar
       },
-      /**
-       * @param {ControlLike} control
-       * @return {Control}
-       */
-      initializeControl (control) {
-        control = control?.$control || control
-        instanceOf(control, Control)
-
-        return initializeControl(control)
-      },
-      /**
-       * @param {ControlLike[]|module:ol/Collection~Collection<ControlLike>} controls
-       */
-      addControls (controls) {
-        forEach(controls, ::this.addControl)
-      },
       addControl (control) {
         control = this.initializeControl(control)
+
         if (this.getControlById(getControlId(control))) return
 
         this.$control.addControl(control)
-      },
-      /**
-       * @param {ControlLike[]|module:ol/Collection~Collection<ControlLike>} controls
-       */
-      removeControls (controls) {
-        forEach(controls, ::this.removeControl)
+        this.$controlsCollection.push(control)
       },
       /**
        * @param {ControlLike} control
        */
       removeControl (control) {
         control = this.getControlById(getControlId(control?.$control || control))
+
         if (!control) return
 
-        this._controls = this.getControls().filter(item => getControlId(control) !== getControlId(item))
+        this.$controlsCollection.remove(control)
         this.scheduleRecreate()
       },
       /**
        * @return {void}
        */
       clearControls () {
-        this._controls = []
+        this.$controlsCollection.clear()
         this.scheduleRecreate()
       },
       /**
-       * @returns {Array<module:ol/control/Control~Control>}
+       * @return {Promise<void>}
+       * @protected
        */
-      getControls () {
-        return this.$control.getControls()
+      async mount () {
+        if (this.$controlBarContainer) {
+          this.$controlBarContainer.setSubBar(this)
+        } else {
+          this.$controlsContainer?.addControl(this)
+        }
+
+        return this::olCmp.methods.mount()
       },
       /**
-       * @param {string|number} controlId
-       * @returns {ControlLike}
+       * @return {Promise<void>}
+       * @protected
        */
-      getControlById (controlId) {
-        return find(this.getControls(), control => getControlId(control) === controlId)
+      async unmount () {
+        if (this.$controlBarContainer) {
+          this.$controlBarContainer.setSubBar(undefined)
+        } else {
+          this.$controlsContainer?.removeControl(this)
+        }
+
+        return this::olCmp.methods.unmount()
       },
       /**
        * @return {Object}
@@ -117,10 +110,12 @@
        */
       getServices () {
         const vm = this
+
         return mergeDescriptors(
           this::control.methods.getServices(),
+          this::controlsContainer.methods.getServices(),
           {
-            get controlsContainer () { return vm },
+            get controlBarVm () { return vm },
           },
         )
       },
@@ -129,12 +124,13 @@
 
   function defineServices () {
     Object.defineProperties(this, {
-      $controlsCollection: {
+      $controlBarContainer: {
         enumerable: true,
-        get: this.$control,
+        get: () => this.$services?.controlBarContainer,
       },
     })
   }
+
 </script>
 
 <style scoped>

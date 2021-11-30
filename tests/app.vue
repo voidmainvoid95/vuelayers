@@ -7,9 +7,12 @@
       <VlSearchBarNominatim />
       <VlControlBar>
         <VlFullScreen v-if="fullscreenButton" />
-        <VlGeolocationButton
-          v-if="geolocationButton"
-          @position="value => $data.currentPosition = value" />
+        <VlControlToggle v-if="geolocationButton">
+          <font-awesome-icon icon="chevron-down" />
+          <VlControlBar>
+            <VlGeolocationButton />
+          </VlControlBar>
+        </VlControlToggle>
       </VlControlBar>
       <VlOverlayMenu
         ref="overlayMenu"

@@ -43,7 +43,7 @@ export default {
      * @protected
      */
     async mount () {
-      this.$controlsContainer?.addControl(this.$control)
+      this.$controlsContainer?.addControl(this)
 
       return this::olCmp.methods.mount()
     },

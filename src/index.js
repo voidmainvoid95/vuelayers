@@ -41,9 +41,9 @@ import {
 import './styles/main.scss'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faLocationArrow, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faLocationArrow, faSearch, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add([faBars, faLocationArrow, faSearch])
+library.add([faBars, faLocationArrow, faSearch, faChevronDown])
 
 /**
  * @const {string} VueLayers version.

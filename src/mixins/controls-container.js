@@ -104,6 +104,7 @@ export default {
      */
     removeControl (control) {
       control = this.getControlById(getControlId(control?.$control || control))
+
       if (!control) return
 
       this.$controlsCollection.remove(control)

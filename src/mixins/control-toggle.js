@@ -1,4 +1,6 @@
-import { mergeDescriptors } from '../utils'
+import { Control } from 'ol/control'
+import { getControlId, initializeControl } from '../ol-ext'
+import { instanceOf, mergeDescriptors } from '../utils'
 import control from './control'
 import { makeChangeOrRecreateWatchers } from './ol-cmp'
 
@@ -22,12 +24,19 @@ export default {
     },
   },
   watch: {
+    title () {
+      this.$control.setTitle(this.title)
+    },
     .../*#__PURE__*/makeChangeOrRecreateWatchers([
-      'title',
       'active',
       'disable',
       'autoActive',
     ]),
+  },
+  created () {
+    this._controlBar = undefined
+
+    console.log('TOGGLE', this)
   },
   methods: {
     /**
@@ -49,14 +58,40 @@ export default {
       return this::control.methods.unmount()
     },
     /**
+     * @param {ControlBarLike} controlBar
+     * @return {Control}
+     */
+    initializeControlBar (controlBar) {
+      controlBar = controlBar?.$control || controlBar
+      instanceOf(controlBar, Control)
+
+      return initializeControl(controlBar)
+    },
+    /**
+     * @param {ControlBarLike} controlBar
+     */
+    setSubBar (controlBar) {
+      controlBar = this.initializeControlBar(controlBar)
+
+      if (this._controlBar) { if (getControlId(controlBar) === getControlId(this._controlBar)) return }
+
+      this.$control.setSubBar(controlBar)
+      this._controlBar = controlBar
+    },
+    getSubBar () {
+      return this._controlBar
+    },
+    /**
      * @return {Object}
      * @protected
      */
     getServices () {
       const vm = this
+
       return mergeDescriptors(
         this::control.methods.getServices(),
         {
+          get controlBarContainer () { return vm },
           get controlToggleVm () { return vm },
         },
       )
