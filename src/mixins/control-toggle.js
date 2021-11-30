@@ -10,10 +10,6 @@ export default {
   ],
   props: {
     title: String,
-    active: {
-      type: Boolean,
-      default: false,
-    },
     disable: {
       type: Boolean,
       default: false,
@@ -27,36 +23,33 @@ export default {
     title () {
       this.$control.setTitle(this.title)
     },
+    disable () {
+      this.$control.setDisable(this.disable)
+    },
     .../*#__PURE__*/makeChangeOrRecreateWatchers([
-      'active',
-      'disable',
       'autoActive',
     ]),
   },
   created () {
     this._controlBar = undefined
-
-    console.log('TOGGLE', this)
   },
   methods: {
+    /**
+     * Create Toggle
+     * @return {module:ol-ext/control/Toggle~Toggle}
+     * @protected
+     * @abstract
+     */
+    createToggle () {
+      throw new Error(`${this.vmName} not implemented method: createToggle()`)
+    },
+    createControl () {
+      return this.createToggle()
+    },
     /**
      * @return {Promise<Toggle>}
      */
     resolveToggle: control.methods.resolveControl,
-    /**
-     * @return {Promise<void>}
-     * @protected
-     */
-    async mount () {
-      return this::control.methods.mount()
-    },
-    /**
-     * @return {Promise<void>}
-     * @protected
-     */
-    async unmount () {
-      return this::control.methods.unmount()
-    },
     /**
      * @param {ControlBarLike} controlBar
      * @return {Control}
@@ -71,13 +64,17 @@ export default {
      * @param {ControlBarLike} controlBar
      */
     setSubBar (controlBar) {
-      controlBar = this.initializeControlBar(controlBar)
-
-      if (this._controlBar) { if (getControlId(controlBar) === getControlId(this._controlBar)) return }
+      if (controlBar) {
+        controlBar = this.initializeControlBar(controlBar)
+        if (this._controlBar) { if (getControlId(controlBar) === getControlId(this._controlBar)) return }
+      }
 
       this.$control.setSubBar(controlBar)
       this._controlBar = controlBar
     },
+    /**
+     * @returns {module:ol-ext/control/Bar~Bar}
+     */
     getSubBar () {
       return this._controlBar
     },

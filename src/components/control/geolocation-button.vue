@@ -10,8 +10,9 @@
 
 <script>
   import GeolocationButton from 'ol-ext/control/GeolocationButton'
-  import { makeChangeOrRecreateWatchers } from '../../mixins'
-  import controlToggle from '../../mixins/control-toggle'
+  import { makeChangeOrRecreateWatchers, controlToggle } from '../../mixins'
+  import { EPSG_3857 } from '../../ol-ext'
+  import { transform } from 'ol/proj'
 
   export default {
     name: 'VlGeolocationButton',
@@ -37,20 +38,41 @@
         'delay',
       ]),
     },
+    created () {
+      this::defineServices()
+    },
     methods: {
-      createControl () {
+      /**
+       * Create GeolocationButton
+       * @return {module:ol-ext/control/GeolocationButton~GeolocationButton}
+       * @protected
+       */
+      createToggle () {
         const newGeolocationButton = new GeolocationButton({
           className: this.classes.join(' '),
           title: this.title,
           delay: this.delay,
         })
         newGeolocationButton.on('position', event => {
-          if (event.coordinate) { this.$emit('position', event.coordinate) }
+          if (event.coordinate) {
+            const dataProjection = this.$mapVm.getDataProjection()
+            if (dataProjection !== EPSG_3857) { event.coordinate = transform(event.coordinate, EPSG_3857, dataProjection) }
+            this.$emit('position', event.coordinate)
+          }
         })
         newGeolocationButton.getButtonElement().appendChild(this.$el)
         return newGeolocationButton
       },
     },
+  }
+
+  function defineServices () {
+    Object.defineProperties(this, {
+      $mapVm: {
+        enumerable: true,
+        get: () => this.$services?.mapVm,
+      },
+    })
   }
 </script>
 

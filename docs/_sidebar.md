@@ -12,11 +12,19 @@
   * [vl-view](/docs/component/view.md)
 
   * Control
+  
+    * [vl-control-toggle](/docs/component/control-toggle.md)
     * [vl-geolocation-button](/docs/component/geolocation-button.md) 
     * [vl-overlay-menu](/docs/component/overlay-menu.md)
     * [vl-search-bar-nominatim](/docs/component/search-bar-nominatim.md)
     * [vl-search-bar-photon](/docs/component/search-bar-photon.md)
     * [vl-zoom](/docs/component/control-zoom.md)
+    * [vl-zoom-slider](/docs/component/control-zoom-slider.md)
+    * [vl-rotate](/docs/component/control-rotate.md)
+    * [vl-full-screen](/docs/component/full-screen.md)
+    * [vl-control-bar](/docs/component/control-bar.md)
+    * [vl-attribution](/docs/component/control-attribution.md)
+    * [vl-control-default](/docs/component/control-default.md)
 
   * Layer
 

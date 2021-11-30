@@ -18,16 +18,29 @@ export default {
   },
   props: {
     className: String,
+    active: {
+      type: Boolean,
+      default: false,
+    },
   },
   created () {
     this::defineServices()
   },
   watch: {
+    active () {
+      this.$control.setActive(this.active)
+    },
     .../*#__PURE__*/makeChangeOrRecreateWatchers([
       'className',
     ]),
   },
   methods: {
+    /**
+     * Create Control
+     * @return {module:ol/control/Control~Control}
+     * @protected
+     * @abstract
+     */
     createControl () {
       throw new Error(`${this.vmName} not implemented method: createControl()`)
     },
@@ -35,7 +48,7 @@ export default {
       return this.createControl()
     },
     /**
-     * @return {Promise<Toggle>}
+     * @return {Promise<Control>}
      */
     resolveControl: olCmp.methods.resolveOlObject,
     /**

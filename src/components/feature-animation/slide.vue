@@ -15,6 +15,11 @@
       featureAnimation,
     ],
     methods: {
+      /**
+       * Create Slide
+       * @return {module:ol-ext/featureAnimation/Slide~Slide}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Slide({
           duration: this.duration,

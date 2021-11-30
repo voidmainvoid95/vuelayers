@@ -28,6 +28,11 @@
       this.currentSide = this.right || this.currentSide
     },
     methods: {
+      /**
+       * Create Throw
+       * @return {module:ol-ext/featureAnimation/Throw~Throw}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Throw({
           duration: this.duration,

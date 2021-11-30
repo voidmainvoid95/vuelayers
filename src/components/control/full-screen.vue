@@ -41,6 +41,11 @@
       ]),
     },
     methods: {
+      /**
+       * Create FullScreen
+       * @return {module:ol/control/FullScreen~FullScreen}
+       * @protected
+       */
       createControl () {
         return new FullScreen({
           className: this.classes.join('.').substring(1),

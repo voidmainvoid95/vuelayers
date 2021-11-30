@@ -39,6 +39,11 @@
       ]),
     },
     methods: {
+      /**
+       * Create SearchPhoton
+       * @return {module:ol-ext/control/SearchPhoton~SearchPhoton}
+       * @protected
+       */
       createSearchBar () {
         return new SearchPhoton({
           url: this.url,

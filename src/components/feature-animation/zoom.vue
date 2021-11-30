@@ -28,6 +28,11 @@
       this.currentZoomOut = this.zoomOut || this.currentZoomOut
     },
     methods: {
+      /**
+       * Create Zoom
+       * @return {module:ol-ext/featureAnimation/Zoom~Zoom}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Zoom({
           duration: this.duration,

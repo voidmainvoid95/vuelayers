@@ -37,10 +37,14 @@ export default {
   },
   methods: {
     /**
-     * Create featureAnimation
-     * @return {module:ol-ext/featureanimation/FeatureAnimation~FeatureAnimation}
+     * Create FeatureAnimation
+     * @return {module:ol-ext/featureAnimation/FeatureAnimation~FeatureAnimation}
      * @protected
+     * @abstract
      */
+    createFeatureAnimation () {
+      throw new Error(`${this.vmName} not implemented method: createFeatureAnimation()`)
+    },
     createOlObject () {
       const newFeatureAnimation = this.createFeatureAnimation()
       newFeatureAnimation.on('animationstart', event => {

@@ -15,6 +15,11 @@
       featureAnimation,
     ],
     methods: {
+      /**
+       * Create Fade
+       * @return {module:ol-ext/featureAnimation/Fade~Fade}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Fade({
           duration: this.duration,

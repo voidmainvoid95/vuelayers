@@ -33,6 +33,11 @@
       ]),
     },
     methods: {
+      /**
+       * Create ZoomSlider
+       * @return {module:ol/control/ZoomSlider~ZoomSlider}
+       * @protected
+       */
       createControl () {
         return new ZoomSlider({
           className: this.classes.join(' '),

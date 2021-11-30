@@ -29,6 +29,11 @@
       },
     },
     methods: {
+      /**
+       * Create Rotate
+       * @return {module:ol/control/Rotate~Rotate}
+       * @protected
+       */
       createControl () {
         return new Rotate({
           className: this.classes.join(' '),

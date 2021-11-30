@@ -33,6 +33,11 @@
       this.currentAmplitude = this.amplitude || this.currentAmplitude
     },
     methods: {
+      /**
+       * Create Bounce
+       * @return {module:ol-ext/featureAnimation/Bounce~Bounce}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Bounce({
           duration: this.duration,

@@ -16,7 +16,12 @@
       controlToggle,
     ],
     methods: {
-      createControl () {
+      /**
+       * Create Toggle
+       * @return {module:ol-ext/control/Toggle~Toggle}
+       * @protected
+       */
+      createToggle () {
         return new Toggle({
           html: this.$el,
           className: this.className,

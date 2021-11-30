@@ -28,6 +28,11 @@
       this.currentNb = this.nb || this.currentNb
     },
     methods: {
+      /**
+       * Create Blink
+       * @return {module:ol-ext/featureAnimation/Blink~Blink}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Blink({
           duration: this.duration,

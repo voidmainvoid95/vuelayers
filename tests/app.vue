@@ -7,7 +7,8 @@
       <VlSearchBarNominatim />
       <VlControlBar>
         <VlFullScreen v-if="fullscreenButton" />
-        <VlControlToggle v-if="geolocationButton">
+        <VlControlToggle
+          v-if="geolocationButton">
           <font-awesome-icon icon="chevron-down" />
           <VlControlBar>
             <VlGeolocationButton />

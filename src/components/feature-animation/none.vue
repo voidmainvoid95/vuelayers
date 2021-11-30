@@ -15,6 +15,11 @@
       featureAnimation,
     ],
     methods: {
+      /**
+       * Create None
+       * @return {module:ol-ext/featureAnimation/None~None}
+       * @protected
+       */
       createFeatureAnimation () {
         return new None({
           duration: this.duration,

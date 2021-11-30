@@ -43,11 +43,15 @@ export default {
       'zoomOnSelect',
     ]),
   },
+  created () {
+    this::defineServices()
+  },
   methods: {
     /**
-     * Create SearchBar
-     * @return {module:ol-ext/control/SearchBar~SearchBar}
+     * Create Search
+     * @return {module:ol-ext/control/Search~Search}
      * @protected
+     * @abstract
      */
     createSearchBar () {
       throw new Error(`${this.vmName} not implemented method: createSearchBar()`)
@@ -60,23 +64,9 @@ export default {
       return newSearchBar
     },
     /**
-     * @return {Promise<SearchBar>}
+     * @return {Promise<Search>}
      */
     resolveSearchBar: control.methods.resolveControl,
-    /**
-     * @return {Promise<void>}
-     * @protected
-     */
-    async mount () {
-      return this::control.methods.mount()
-    },
-    /**
-     * @return {Promise<void>}
-     * @protected
-     */
-    async unmount () {
-      return this::control.methods.unmount()
-    },
     /**
      * @return {Object}
      * @protected
@@ -91,7 +81,7 @@ export default {
       )
     },
     defaultSelectHandler (event) {
-      const map = this.$controlsContainer?.$map
+      const map = this.$mapVm
       const view = map.getView()
       if (event.search.geojson) {
         const format = new GeoJSON()
@@ -116,4 +106,13 @@ export default {
       }
     },
   },
+}
+
+function defineServices () {
+  Object.defineProperties(this, {
+    $mapVm: {
+      enumerable: true,
+      get: () => this.$services?.mapVm,
+    },
+  })
 }

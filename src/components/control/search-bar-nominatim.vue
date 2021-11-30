@@ -46,6 +46,11 @@
       ]),
     },
     methods: {
+      /**
+       * Create SearchNominatim
+       * @return {module:ol-ext/control/SearchNominatim~SearchNominatim}
+       * @protected
+       */
       createSearchBar () {
         const newSearchBar = new SearchNominatim({
           className: this.vmClass,

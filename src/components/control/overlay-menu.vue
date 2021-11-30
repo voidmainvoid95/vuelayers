@@ -75,7 +75,7 @@
     },
     methods: {
       /**
-       * Create OverlayMenu
+       * Create Overlay
        * @return {module:ol-ext/control/Overlay~Overlay}
        * @protected
        */
@@ -87,17 +87,17 @@
           hideOnClick: this.hideOnClick,
         })
       },
+      /**
+       * @return {Promise<Overlay>}
+       */
       resolveOverlayMenu: control.methods.resolveControl,
-      async mount () {
-        this.updateDefaultControls()
-        return this::control.methods.mount()
-      },
       /**
        * @return {Promise<void>}
        * @protected
        */
-      async unmount () {
-        return this::control.methods.unmount()
+      async mount () {
+        this.updateDefaultControls()
+        return this::control.methods.mount()
       },
       /**
        * @return {Object}

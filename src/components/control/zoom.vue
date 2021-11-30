@@ -52,6 +52,11 @@
       ]),
     },
     methods: {
+      /**
+       * Create Zoom
+       * @return {module:ol/control/Zoom~Zoom}
+       * @protected
+       */
       createControl () {
         return new Zoom({
           className: this.classes.join(' '),

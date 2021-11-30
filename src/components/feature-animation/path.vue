@@ -38,6 +38,11 @@
       this.currentPath = this.path || this.currentPath
     },
     methods: {
+      /**
+       * Create Path
+       * @return {module:ol-ext/featureAnimation/Path~Path}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Path({
           duration: this.duration,

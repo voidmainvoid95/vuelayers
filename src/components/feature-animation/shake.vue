@@ -38,6 +38,11 @@
       this.currentHorizontal = this.horizontal || this.currentHorizontal
     },
     methods: {
+      /**
+       * Create Shake
+       * @return {module:ol-ext/featureAnimation/Shake~Shake}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Shake({
           duration: this.duration,

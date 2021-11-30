@@ -15,6 +15,11 @@
       featureAnimation,
     ],
     methods: {
+      /**
+       * Create Teleport
+       * @return {module:ol-ext/featureAnimation/Teleport~Teleport}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Teleport({
           duration: this.duration,

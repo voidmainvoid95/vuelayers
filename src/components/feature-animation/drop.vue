@@ -29,6 +29,11 @@
       }
     },
     methods: {
+      /**
+       * Create Drop
+       * @return {module:ol-ext/featureAnimation/Drop~Drop}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Drop({
           duration: this.duration,

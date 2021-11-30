@@ -23,6 +23,11 @@
       },
     },
     methods: {
+      /**
+       * Create Attribution
+       * @return {module:ol/control/Attribution~Attribution}
+       * @protected
+       */
       createControl () {
         return new Attribution({
           className: this.classes.join(' '),

@@ -31,6 +31,11 @@
       this.currentDuration = this.duration || 3000
     },
     methods: {
+      /**
+       * Create Pulse
+       * @return {module:ol-ext/featureAnimation/Pulse~Pulse}
+       * @protected
+       */
       createFeatureAnimation () {
         return new Zoom({
           duration: this.duration,
