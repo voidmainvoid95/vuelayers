@@ -94,14 +94,6 @@ export default {
       }
     },
     /**
-     * @param {FeatureLike|module:ol/Feature~Feature} feature
-     * @param {FeatureAnimationLike|module:ol-ext/featureanimation/FeatureAnimation~FeatureAnimation} animation
-     */
-    async animateFeature (feature, animation) {
-      const selfLayer = await this.$featuresOverlayVm?.resolveLayer()
-      if (selfLayer) { selfLayer.animateFeature(feature.$feature || feature, animation.$animation || animation) }
-    },
-    /**
      * @param {FeatureLike[]|module:ol/Collection~Collection<FeatureLike>} features
      */
     removeFeatures (features) {

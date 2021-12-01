@@ -67,7 +67,7 @@ export default {
      * @protected
      */
     async mount () {
-      this.$featureVm?.animate(this)
+      this.$animationContainer?.animate(this)
 
       return this::olCmp.methods.mount()
     },
@@ -99,6 +99,10 @@ function defineServices () {
     $animation: {
       enumerable: true,
       get: () => this.$olObject,
+    },
+    $animationContainer: {
+      enumerable: true,
+      get: () => this.$services?.animationContainer,
     },
   })
 }

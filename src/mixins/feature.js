@@ -240,6 +240,7 @@ export default {
         this::geometryContainer.methods.getServices(),
         this::styleContainer.methods.getServices(),
         {
+          get animationContainer () { return vm },
           get featureVm () { return vm },
         },
       )
@@ -390,7 +391,7 @@ export default {
      * @param {FeatureAnimationLike} animation
      */
     animate (animation) {
-      this.$featuresContainer?.animateFeature(this, animation)
+      this.$mapVm.animateFeature(this, animation)
     },
   },
 }

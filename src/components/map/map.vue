@@ -481,6 +481,14 @@
        */
       resolveMap: olCmp.methods.resolveOlObject,
       /**
+       * @param {FeatureLike|module:ol/Feature~Feature} feature
+       * @param {FeatureAnimationLike|module:ol-ext/featureAnimation/FeatureAnimation~FeatureAnimation} animation
+       */
+      async animateFeature (feature, animation) {
+        const selfMap = await this.resolveMap()
+        selfMap.animateFeature(feature.$feature || feature, animation.$animation || animation)
+      },
+      /**
        * @param {number[]} pixel
        * @param {function} callback
        * @param {Object} [opts]
