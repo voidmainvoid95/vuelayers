@@ -73,6 +73,10 @@
         type: Boolean,
         default: true,
       },
+      colors: {
+        type: Array,
+        default: undefined,
+      },
     },
     data () {
       return {
@@ -105,12 +109,14 @@
       },
     },
     watch: {
+      data () {
+        this.$control.setData(this.data)
+      },
       .../*#__PURE__*/makeChangeOrRecreateWatchers([
         'type',
         'radius',
         'rotateWithView',
-      ], [
-        'data',
+        'colors',
       ]),
     },
     created () {
@@ -124,6 +130,7 @@
           data: this.data,
           rotateWithView: this.rotateWithView,
           stroke: this.currentStroke,
+          colors: this.colors,
         })
       },
       async mount () {

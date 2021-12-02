@@ -3,7 +3,9 @@
     <VlMap
       ref="map"
       :default-interactions="interactionOptions"
+      :default-controls="false"
       data-projection="EPSG:4326">
+      <VlZoomSlider />
       <VlSearchBarNominatim />
       <VlControlBar>
         <VlFullScreen v-if="fullscreenButton" />
@@ -96,7 +98,8 @@
           <VlStyle>
             <VlStyleChart
               :data="[0.2, 0.3, 0.4, 0.1]"
-              type="pie" />
+              type="pie"
+              :colors="['#ff0000', '#0e28af', '#467e13', '#81169f']" />
           </VlStyle>
         </VlFeature>
       </VlLayerVector>
