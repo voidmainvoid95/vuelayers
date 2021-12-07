@@ -9,15 +9,14 @@
 
 <script>
   import Bar from 'ol-ext/control/Bar'
-  import { control, controlsContainer } from '../../mixins'
-  import olCmp from '../../mixins/ol-cmp'
+  import { olCmp, controlsContainer } from '../../mixins'
   import { getControlId } from '../../ol-ext'
   import { mergeDescriptors } from '../../utils'
 
   export default {
     name: 'VlControlBar',
     mixins: [
-      control,
+      olCmp,
       controlsContainer,
     ],
     props: {
@@ -44,7 +43,7 @@
       this::defineServices()
     },
     methods: {
-      createControl () {
+      createOlObject () {
         const bar = new Bar({
           className: this.classes.join(' '),
           controls: this.getControls(),
@@ -86,7 +85,7 @@
         if (this.$controlBarContainer) {
           this.$controlBarContainer.setSubBar(this)
         } else {
-          this.$controlsContainer?.addControl(this)
+          this.$controlsContainer.addControl(this)
         }
 
         return this::olCmp.methods.mount()
@@ -112,7 +111,7 @@
         const vm = this
 
         return mergeDescriptors(
-          this::control.methods.getServices(),
+          this::olCmp.methods.getServices(),
           this::controlsContainer.methods.getServices(),
           {
             get controlBarVm () { return vm },
@@ -124,9 +123,17 @@
 
   function defineServices () {
     Object.defineProperties(this, {
+      $control: {
+        enumerable: true,
+        get: () => this.$olObject,
+      },
       $controlBarContainer: {
         enumerable: true,
         get: () => this.$services?.controlBarContainer,
+      },
+      $controlsContainer: {
+        enumerable: true,
+        get: () => this.$services?.controlsContainer,
       },
     })
   }

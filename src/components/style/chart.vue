@@ -55,7 +55,7 @@
       },
     },
     props: {
-      data: {
+      chartData: {
         type: Array,
         default: () => {
           return []
@@ -87,8 +87,8 @@
       labels () {
         const labels = []
         let s = 0
-        for (let i = 0; i < this.data.length; i++) {
-          const d = this.data[i]
+        for (let i = 0; i < this.chartData.length; i++) {
+          const d = this.chartData[i]
           const a = (2 * s + d) * Math.PI - Math.PI / 2
           const v = Math.round(d * 100)
           if (v > 0) {
@@ -109,8 +109,8 @@
       },
     },
     watch: {
-      data () {
-        this.$control.setData(this.data)
+      chartData () {
+        this.$olObject.setData(this.chartData)
       },
       .../*#__PURE__*/makeChangeOrRecreateWatchers([
         'type',
@@ -127,7 +127,7 @@
         return new Chart({
           type: this.type,
           radius: this.radius,
-          data: this.data,
+          data: this.chartData,
           rotateWithView: this.rotateWithView,
           stroke: this.currentStroke,
           colors: this.colors,

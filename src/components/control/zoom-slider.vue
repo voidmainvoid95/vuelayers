@@ -29,7 +29,7 @@
     watch: {
       .../*#__PURE__*/makeChangeOrRecreateWatchers([
         'label',
-        'tipLabel,',
+        'tipLabel',
       ]),
     },
     methods: {
