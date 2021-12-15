@@ -17,7 +17,8 @@
     "rollup": "rollup -c build/rollup.config.js",
     "start": "npm run serve",
     "test": "npm run test:unit && npm run test:e2e",
-    "version": "npm run build"
+    "version": "npm run build",
+    "prepare": "npm run build"
   },
   "main": "./dist/vuelayers.umd.js",
   "module": "./dist/vuelayers.esm.js",
