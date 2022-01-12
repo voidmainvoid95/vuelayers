@@ -1,7 +1,7 @@
 import { mergeDescriptors } from '../utils'
 import control from './control'
 import GeoJSON from 'ol/format/GeoJSON'
-import getCenter from 'ol/extent'
+import { getCenter } from 'ol/extent'
 import {
   getMapDataProjection,
 } from '../ol-ext'
