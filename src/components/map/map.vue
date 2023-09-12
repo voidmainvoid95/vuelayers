@@ -3,6 +3,9 @@
     :id="vmId"
     :class="vmClass"
     :tabindex="tabindex">
+    <template v-if="defaultControls">
+      <ControlDefault />
+    </template>
     <slot />
     <ViewCmp
       v-if="!withCustomView"
@@ -81,6 +84,7 @@
   import { Layer as VectorLayerCmp } from '../vector-layer'
   import { Source as VectorSourceCmp } from '../vector-source'
   import ViewCmp from './view.vue'
+  import { ControlDefault } from '../control'
 
   /**
    * Container for **layers**, **interactions**, **controls** and **overlays**. It responsible for viewport
@@ -95,6 +99,7 @@
       ViewCmp,
       VectorLayerCmp,
       VectorSourceCmp,
+      ControlDefault,
     },
     mixins: [
       projTransforms,
@@ -294,12 +299,6 @@
           this.$emit('update:size', value?.slice())
         },
       },
-      defaultControls: {
-        deep: true,
-        handler (value) {
-          this.initDefaultControls(value)
-        },
-      },
       defaultInteractions: {
         deep: true,
         handler (value) {
@@ -379,8 +378,7 @@
       this._viewVm = undefined
 
       this::defineServices()
-      // todo wrap controls into components and provide vl-control-default
-      this.initDefaultControls(this.defaultControls)
+
       // todo initialize without interactions and provide vl-interaction-default component
       this.initDefaultInteractions(this.defaultInteractions)
     },
@@ -484,6 +482,14 @@
        * @return {Promise<module:ol/Map~Map>}
        */
       resolveMap: olCmp.methods.resolveOlObject,
+      /**
+       * @param {FeatureLike|module:ol/Feature~Feature} feature
+       * @param {FeatureAnimationLike|module:ol-ext/featureAnimation/FeatureAnimation~FeatureAnimation} animation
+       */
+      async animateFeature (feature, animation) {
+        const selfMap = await this.resolveMap()
+        selfMap.animateFeature(feature.$feature || feature, animation.$animation || animation)
+      },
       /**
        * @param {number[]} pixel
        * @param {function} callback

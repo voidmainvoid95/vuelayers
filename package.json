@@ -17,7 +17,8 @@
     "rollup": "rollup -c build/rollup.config.js",
     "start": "npm run serve",
     "test": "npm run test:unit && npm run test:e2e",
-    "version": "npm run build"
+    "version": "npm run build",
+    "prepare": "npm run build"
   },
   "main": "./dist/vuelayers.umd.js",
   "module": "./dist/vuelayers.esm.js",
@@ -30,10 +31,14 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.12.5",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^2.0.6",
     "@turf/point-on-feature": "^5.1.5",
     "debounce-promise": "^3.1.2",
     "merge-descriptors": "^1.0.1",
     "ol": "^6.4.3 < 6.7.0 || ^6.8.2",
+    "ol-ext": "^3.2.16",
     "ol-rotate-feature": "^3.0.1",
     "ol-tilecache": "^7.0.0",
     "parse-color": "^1.0.0",
@@ -104,9 +109,9 @@
     "sinon": "^9.2.1",
     "sinon-chai": "^3.5.0",
     "source-map-concat": "^1.0.1",
-    "string-replace-loader": "^2.0.0",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.12"
+    "string-replace-loader": "^3.0.0",
+    "vue": "^2.7.14",
+    "vue-template-compiler": "^2.7.14"
   },
   "peerDependencies": {
     "vue": "^2.6"

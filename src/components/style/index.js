@@ -6,6 +6,7 @@ import RegShapeStyle from './reg-shape.vue'
 import StrokeStyle from './stroke.vue'
 import Style from './style.vue'
 import TextStyle from './text.vue'
+import ChartStyle from './chart.vue'
 
 function plugin (Vue, options = {}) {
   if (plugin.installed) {
@@ -29,6 +30,7 @@ function plugin (Vue, options = {}) {
   Vue.component(StrokeStyle.name, StrokeStyle)
   Vue.component(Style.name, Style)
   Vue.component(TextStyle.name, TextStyle)
+  Vue.component(ChartStyle.name, ChartStyle)
 
   // todo remove in v0.13.x
   Vue.component('VlStyleBox', {
@@ -53,4 +55,5 @@ export {
   StrokeStyle,
   Style,
   TextStyle,
+  ChartStyle,
 }

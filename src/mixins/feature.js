@@ -241,6 +241,7 @@ export default {
         this::geometryContainer.methods.getServices(),
         this::styleContainer.methods.getServices(),
         {
+          get animationContainer () { return vm },
           get featureVm () { return vm },
         },
       )
@@ -386,6 +387,12 @@ export default {
       if (isEqual(value, prev)) return
 
       this.$emit('update:style', isObjectLike(value) ? clonePlainObject(value) : value)
+    },
+    /**
+     * @param {FeatureAnimationLike} animation
+     */
+    animate (animation) {
+      this.$mapVm.animateFeature(this, animation)
     },
   },
 }

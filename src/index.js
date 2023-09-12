@@ -3,6 +3,7 @@ import {
   ClusterSource,
   DrawInteraction,
   Feature,
+  FeatureAnimation,
   Geoloc,
   GraticuleLayer,
   GroupLayer,
@@ -17,6 +18,7 @@ import {
   ModifyInteraction,
   OsmSource,
   Overlay,
+  Control,
   RotateInteraction,
   SelectInteraction,
   SnapInteraction,
@@ -38,6 +40,11 @@ import {
 } from './components'
 import './styles/main.scss'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faBars, faLocationArrow, faSearch, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add([faBars, faLocationArrow, faSearch, faChevronDown])
+
 /**
  * @const {string} VueLayers version.
  */
@@ -58,11 +65,15 @@ export default function plugin (Vue, options = {}) {
   }
   plugin.installed = true
 
+  Vue.component('FontAwesomeIcon', FontAwesomeIcon)
+
   // install components
   Vue.use(BingmapsSource, options)
   Vue.use(ClusterSource, options)
+  Vue.use(Control, options)
   Vue.use(DrawInteraction, options)
   Vue.use(Feature, options)
+  Vue.use(FeatureAnimation, options)
   Vue.use(Geoloc, options)
   Vue.use(GraticuleLayer, options)
   Vue.use(GroupLayer, options)
@@ -102,8 +113,10 @@ export {
   // components
   BingmapsSource,
   ClusterSource,
+  Control,
   DrawInteraction,
   Feature,
+  FeatureAnimation,
   Geoloc,
   GraticuleLayer,
   GroupLayer,
