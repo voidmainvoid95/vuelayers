@@ -44,7 +44,7 @@
     "parse-color": "^1.0.0",
     "rxjs": "^6.6.3",
     "uuid": "^8.3.1",
-    "vuequery": "^2.1.1"
+    "vuequery": "git+https://github.com/voidmainvoid95/vuequery.git#master"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.12.1",
@@ -111,8 +111,8 @@
     "sinon-chai": "^3.5.0",
     "source-map-concat": "^1.0.1",
     "string-replace-loader": "^3.0.0",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.12"
+    "vue": "^2.7.14",
+    "vue-template-compiler": "^2.7.14"
   },
   "peerDependencies": {
     "vue": "^2.6"
